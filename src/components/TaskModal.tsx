@@ -22,6 +22,7 @@ export function TaskModal({ task, onClose, workspaceId }: TaskModalProps) {
   const { agents, addTask, updateTask, addEvent } = useMissionControl();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [showAgentModal, setShowAgentModal] = useState(false);
+  const [usePlanningMode, setUsePlanningMode] = useState(false);
   // Auto-switch to planning tab if task is in planning status
   const [activeTab, setActiveTab] = useState<TabType>(task?.status === 'planning' ? 'planning' : 'overview');
 
@@ -44,6 +45,8 @@ export function TaskModal({ task, onClose, workspaceId }: TaskModalProps) {
 
       const payload = {
         ...form,
+        // If planning mode is enabled for new tasks, override status to 'planning'
+        status: (!task && usePlanningMode) ? 'planning' : form.status,
         assigned_agent_id: form.assigned_agent_id || null,
         due_date: form.due_date || null,
         workspace_id: workspaceId || task?.workspace_id || 'default',
@@ -171,6 +174,31 @@ export function TaskModal({ task, onClose, workspaceId }: TaskModalProps) {
               placeholder="Add details..."
             />
           </div>
+
+          {/* Planning Mode Toggle - only for new tasks */}
+          {!task && (
+            <div className="p-3 bg-mc-bg rounded-lg border border-mc-border">
+              <label className="flex items-start gap-3 cursor-pointer">
+                <input
+                  type="checkbox"
+                  checked={usePlanningMode}
+                  onChange={(e) => setUsePlanningMode(e.target.checked)}
+                  className="w-4 h-4 mt-0.5 rounded border-mc-border"
+                />
+                <div>
+                  <span className="font-medium text-sm flex items-center gap-2">
+                    <ClipboardList className="w-4 h-4 text-mc-accent" />
+                    Enable Planning Mode
+                  </span>
+                  <p className="text-xs text-mc-text-secondary mt-1">
+                    Best for complex projects that need detailed requirements. 
+                    You&apos;ll answer a few questions to define scope, goals, and constraints 
+                    before work begins. Skip this for quick, straightforward tasks.
+                  </p>
+                </div>
+              </label>
+            </div>
+          )}
 
           <div className="grid grid-cols-2 gap-4">
             {/* Status */}
