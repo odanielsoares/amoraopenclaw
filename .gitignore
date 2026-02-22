@@ -6,5 +6,8 @@ secure/
 # Local skill checkouts (generated)
 skills/
 
+# Local Drive snapshots / downloads
+drive_dropzone_snapshot/
+
 # OS/editor
 .DS_Store
