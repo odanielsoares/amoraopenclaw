@@ -1,0 +1,10 @@
+# Secrets / local runtime state
+secure/
+.openclaw/
+.clawhub/
+
+# Local skill checkouts (generated)
+skills/
+
+# OS/editor
+.DS_Store
