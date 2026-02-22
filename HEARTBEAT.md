@@ -13,9 +13,8 @@
 - Perguntar por bloqueio (1 pergunta objetiva).
 
 ### 3) Caixa de entrada / calendário (SÓ se integrados)
-# Definir fonte:
-# - Gmail? Google Calendar? Notion? Linear? Jira?
-# Se não tiver integração, não inventar.
+- **Google Calendar (via gog)**: monitorar o calendário principal de `Daniels.soares@outlook.com`.
+- Checar eventos nas próximas 24-48h e avisar se houver conflito ou evento <2h.
 
 ### 4) Saúde do sistema (OpenClaw)
 - Se houve erro de canal/modelo nas últimas horas, sinalizar.
