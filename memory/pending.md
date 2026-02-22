@@ -10,10 +10,12 @@
 
 ---
 
-- [ ] Definir escopo do HEARTBEAT: quais fontes checar (email/calendário/Notion/Drive?)
+- [x] Definir escopo do HEARTBEAT: **Drive + Calendar**
   - **Dono:** Dan
   - **Por quê:** sem isso, heartbeat vira barulho ou fica vazio.
+  - **Status:** confirmado em 2026-02-22
 
-- [ ] Confirmar se vamos padronizar aliases de modelos (remover duplicados `Sonnet`/`opus` antigos)
+- [x] Padronizar aliases de modelos (remover duplicados `Sonnet`/`opus` antigos)
   - **Dono:** Dan
   - **Por quê:** evitar confusão no `/model`.
+  - **Status:** autorizado em 2026-02-22
