@@ -1,0 +1,624 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<title>Módulo 7 — Proatividade: Heartbeats & Automações</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap');
+
+:root {
+  --bg: #0a0a0f;
+  --bg-elevated: #12121a;
+  --bg-card: #1a1a25;
+  --bg-card-hover: #222230;
+  --grape: #8b5cf6;
+  --grape-light: #a78bfa;
+  --grape-dim: rgba(139, 92, 246, 0.12);
+  --grape-border: rgba(139, 92, 246, 0.25);
+  --grape-glow: rgba(139, 92, 246, 0.08);
+  --emerald: #10b981;
+  --emerald-dim: rgba(16, 185, 129, 0.12);
+  --emerald-border: rgba(16, 185, 129, 0.25);
+  --amber: #f59e0b;
+  --amber-dim: rgba(245, 158, 11, 0.12);
+  --amber-border: rgba(245, 158, 11, 0.25);
+  --rose: #f43f5e;
+  --rose-dim: rgba(244, 63, 94, 0.12);
+  --rose-border: rgba(244, 63, 94, 0.25);
+  --cyan: #22d3ee;
+  --cyan-dim: rgba(34, 211, 238, 0.12);
+  --text: #f1f1f6;
+  --text-secondary: #9ca3af;
+  --text-muted: #6b7280;
+  --border: rgba(255,255,255,0.06);
+  --border-hover: rgba(255,255,255,0.12);
+  --code-bg: #0d0d15;
+  --code-border: rgba(255,255,255,0.08);
+}
+
+@page { size: A4; margin: 0; }
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  font-family: 'Space Grotesk', -apple-system, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  font-size: 10.5pt;
+  line-height: 1.6;
+  -webkit-print-color-adjust: exact;
+  print-color-adjust: exact;
+}
+
+.page {
+  width: 210mm;
+  min-height: 297mm;
+  padding: 22mm 24mm 28mm;
+  position: relative;
+  overflow: hidden;
+  page-break-after: always;
+  background: var(--bg);
+}
+
+.page::before {
+  content: '';
+  position: absolute;
+  top: -40%;
+  right: -25%;
+  width: 70%;
+  height: 70%;
+  background: radial-gradient(ellipse, var(--grape-glow) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.cover {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  min-height: 297mm;
+  padding: 36mm 28mm;
+  position: relative;
+}
+
+.cover-grid {
+  position: absolute;
+  bottom: 0; right: 0;
+  width: 50%; height: 40%;
+  background-image:
+    linear-gradient(rgba(139,92,246,0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(139,92,246,0.04) 1px, transparent 1px);
+  background-size: 20px 20px;
+  mask-image: linear-gradient(135deg, transparent 30%, rgba(0,0,0,0.3) 100%);
+  -webkit-mask-image: linear-gradient(135deg, transparent 30%, rgba(0,0,0,0.3) 100%);
+}
+
+.cover-decoration {
+  position: absolute;
+  top: 28mm; right: 28mm;
+  width: 100px; height: 100px;
+  border-radius: 50%;
+  background: conic-gradient(from 180deg, var(--emerald), var(--grape), var(--emerald));
+  opacity: 0.1;
+  filter: blur(35px);
+}
+
+.cover-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 16px;
+  background: var(--emerald-dim);
+  border: 1px solid var(--emerald-border);
+  border-radius: 100px;
+  font-size: 10pt;
+  font-weight: 500;
+  color: var(--emerald);
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  margin-bottom: 24px;
+  position: relative;
+}
+
+.cover-title {
+  font-size: 44pt;
+  font-weight: 700;
+  line-height: 1.05;
+  letter-spacing: -1.5px;
+  color: var(--text);
+  margin-bottom: 18px;
+  position: relative;
+  max-width: 500px;
+}
+
+.cover-title em {
+  font-style: italic;
+  background: linear-gradient(135deg, var(--emerald), #34d399);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.cover-subtitle {
+  font-size: 14pt;
+  font-weight: 300;
+  color: var(--text-secondary);
+  line-height: 1.6;
+  max-width: 440px;
+  margin-bottom: 44px;
+  position: relative;
+}
+
+.cover-meta {
+  position: relative;
+  display: flex;
+  gap: 36px;
+  padding-top: 28px;
+  border-top: 1px solid var(--border);
+}
+
+.cover-meta-item { display: flex; flex-direction: column; gap: 4px; }
+
+.cover-meta-label {
+  font-size: 8pt;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  color: var(--text-muted);
+  font-weight: 500;
+}
+
+.cover-meta-value {
+  font-size: 12pt;
+  font-weight: 600;
+  color: var(--text);
+}
+
+.page-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 28px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--border);
+}
+
+.page-header-left {
+  font-size: 9pt;
+  color: var(--emerald);
+  font-weight: 600;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+.page-header-right {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 8pt;
+  color: var(--text-muted);
+}
+
+.page-footer {
+  position: absolute;
+  bottom: 12mm;
+  left: 24mm; right: 24mm;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 10px;
+  border-top: 1px solid var(--border);
+}
+
+.page-footer-left {
+  font-size: 8pt;
+  color: var(--text-muted);
+  letter-spacing: 0.5px;
+}
+
+.page-footer-right {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 8pt;
+  color: var(--text-muted);
+}
+
+.section-title {
+  font-size: 22pt;
+  font-weight: 700;
+  letter-spacing: -0.5px;
+  color: var(--text);
+  margin-bottom: 12px;
+}
+
+h3 {
+  font-size: 13pt;
+  font-weight: 600;
+  color: var(--grape-light);
+  margin: 22px 0 10px;
+}
+
+h4 {
+  font-size: 11pt;
+  font-weight: 600;
+  color: var(--text);
+  margin: 16px 0 8px;
+}
+
+p {
+  margin-bottom: 10px;
+  color: var(--text-secondary);
+  font-size: 10.5pt;
+}
+
+strong { color: var(--text); }
+
+.code-block {
+  background: var(--code-bg);
+  border: 1px solid var(--code-border);
+  border-radius: 10px;
+  padding: 14px 18px;
+  margin: 12px 0;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9pt;
+  line-height: 1.7;
+  color: var(--text-secondary);
+  overflow-x: auto;
+  position: relative;
+  white-space: pre;
+}
+
+.code-block::before {
+  content: attr(data-lang);
+  position: absolute;
+  top: 8px; right: 12px;
+  font-size: 7.5pt;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.code-block .comment { color: #4a4a5a; }
+.code-block .cmd { color: var(--grape-light); }
+.code-block .str { color: var(--emerald); }
+.code-block .flag { color: var(--amber); }
+.code-block .prompt { color: var(--text-muted); }
+
+code {
+  background: var(--grape-dim);
+  color: var(--grape-light);
+  padding: 2px 7px;
+  border-radius: 4px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9pt;
+}
+
+.step {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 16px 18px 16px 56px;
+  margin: 12px 0;
+  position: relative;
+}
+
+.step-num {
+  position: absolute;
+  left: 16px; top: 16px;
+  width: 28px; height: 28px;
+  background: var(--grape-dim);
+  border: 1px solid var(--grape-border);
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12pt;
+  font-weight: 700;
+  color: var(--grape-light);
+}
+
+.step-title {
+  font-size: 12pt;
+  font-weight: 600;
+  color: var(--text);
+  margin-bottom: 4px;
+}
+
+.callout {
+  border-radius: 10px;
+  padding: 14px 16px;
+  margin: 14px 0;
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+}
+
+.callout-icon { font-size: 16pt; flex-shrink: 0; line-height: 1; }
+.callout-content { flex: 1; }
+.callout-content strong { display: block; margin-bottom: 3px; color: var(--text); }
+.callout-content p { margin-bottom: 4px; }
+
+.callout.tip { background: var(--emerald-dim); border: 1px solid var(--emerald-border); }
+.callout.warning { background: var(--amber-dim); border: 1px solid var(--amber-border); }
+.callout.danger { background: var(--rose-dim); border: 1px solid var(--rose-border); }
+.callout.info { background: var(--grape-dim); border: 1px solid var(--grape-border); }
+
+.checklist {
+  background: var(--bg-card);
+  border: 1px solid var(--emerald-border);
+  border-radius: 12px;
+  padding: 18px 20px;
+  margin: 18px 0;
+}
+
+.checklist-title {
+  font-size: 13pt;
+  font-weight: 700;
+  color: var(--emerald);
+  margin-bottom: 12px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.checklist-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 7px 0;
+  font-size: 10pt;
+  color: var(--text-secondary);
+  border-bottom: 1px solid var(--border);
+}
+
+.checklist-item:last-child { border-bottom: none; }
+
+.check-box {
+  width: 20px; height: 20px;
+  border: 2px solid var(--border-hover);
+  border-radius: 5px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 10pt;
+}
+
+.prompt-section {
+  background: linear-gradient(135deg, var(--bg-elevated), var(--bg-card));
+  border: 1px solid var(--grape-border);
+  border-radius: 14px;
+  padding: 24px;
+  margin: 20px 0;
+  page-break-inside: avoid;
+}
+
+.prompt-section h3 {
+  color: var(--grape-light);
+  margin-top: 0;
+  font-size: 14pt;
+}
+
+.prompt-instruction {
+  background: var(--grape-dim);
+  border: 1px solid var(--grape-border);
+  border-radius: 8px;
+  padding: 8px 12px;
+  margin: 10px 0;
+  font-size: 9pt;
+  color: var(--grape-light);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.prompt-box {
+  background: var(--code-bg);
+  border: 1px solid var(--code-border);
+  border-radius: 10px;
+  padding: 18px;
+  margin: 12px 0;
+  font-size: 9.5pt;
+  line-height: 1.7;
+  color: var(--text-secondary);
+}
+
+.prompt-box strong { color: var(--grape-light); }
+
+ul, ol { margin: 8px 0 12px 18px; }
+li { margin-bottom: 3px; font-size: 10pt; color: var(--text-secondary); }
+
+.next-module {
+  background: var(--bg-card);
+  border: 1px solid var(--grape-border);
+  border-radius: 12px;
+  padding: 16px 18px;
+  margin-top: 20px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.next-module .next-icon { font-size: 20pt; }
+.next-module .next-text { flex: 1; }
+.next-module .next-label { font-size: 8.5pt; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px; }
+.next-module .next-title { font-size: 12pt; font-weight: 600; color: var(--text); }
+
+table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  margin: 14px 0;
+  border-radius: 10px;
+  overflow: hidden;
+  border: 1px solid var(--border);
+}
+
+thead th {
+  background: var(--bg-card);
+  padding: 10px 14px;
+  text-align: left;
+  font-size: 9pt;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: var(--text-muted);
+  font-weight: 600;
+  border-bottom: 1px solid var(--border);
+}
+
+tbody td {
+  padding: 9px 14px;
+  font-size: 10pt;
+  border-bottom: 1px solid var(--border);
+  color: var(--text-secondary);
+}
+
+tbody tr:last-child td { border-bottom: none; }
+tbody td:first-child { font-weight: 500; color: var(--text); }
+</style>
+</head>
+<body>
+
+<!-- COVER PAGE -->
+<div class="page cover">
+  <div class="cover-decoration"></div>
+  <div class="cover-grid"></div>
+  <div class="cover-badge">Módulo 07</div>
+  <div class="cover-title">Amora<br><em>COO digital</em></div>
+  <div class="cover-subtitle">Quem eu sou, como eu opero e como eu te ajudo com proatividade sem virar ruído</div>
+  <div class="cover-meta">
+    <div class="cover-meta-item">
+      <span class="cover-meta-label">Duração</span>
+      <span class="cover-meta-value">5 min</span>
+    </div>
+    <div class="cover-meta-item">
+      <span class="cover-meta-label">Formato</span>
+      <span class="cover-meta-value">PDF (template Proatividade)</span>
+    </div>
+    <div class="cover-meta-item">
+      <span class="cover-meta-label">Foco</span>
+      <span class="cover-meta-value">Operação & execução</span>
+    </div>
+  </div>
+</div>
+
+<!-- CONTENT PAGE 1 -->
+<div class="page">
+  <div class="page-header">
+    <span class="page-header-left">Amora — COO digital</span>
+    <span class="page-header-right">OpenClaw</span>
+  </div>
+
+  <div class="section-title">O que eu sou</div>
+
+  <p>Eu sou a <strong>Amora</strong>: tua <strong>COO/Chief of Staff digital</strong> dentro do OpenClaw. Meu trabalho é transformar <em>ideia → operação</em>: processos leves, cadência, métricas e automações — sem virar burocracia.</p>
+
+  <h3>O que eu faço bem</h3>
+  <ul>
+    <li><strong>Clareza e execução</strong>: quebrar em passos curtos + próximo comando</li>
+    <li><strong>Operação</strong>: SOPs, checklists, rituais, follow-ups</li>
+    <li><strong>Métricas</strong>: 1–3 KPIs por área + leitura semanal</li>
+    <li><strong>Automação</strong>: tirar do caminho o repetitivo (Drive/Calendar/agents)</li>
+  </ul>
+
+  <div class="callout warning">
+    <div class="callout-icon">⚠️</div>
+    <div class="callout-content">
+      <strong>Regra de segurança</strong>
+      <p>Qualquer ação externa (criar/alterar no Drive, enviar mensagens, etc.) eu faço <strong>com teu OK</strong>. O resto eu preparo em background.</p>
+    </div>
+  </div>
+
+  <div class="page-footer">
+    <span class="page-footer-left">Módulo 07 — Template Proatividade (Amora)</span>
+    <span class="page-footer-right">02</span>
+  </div>
+</div>
+
+<!-- CONTENT PAGE 2 -->
+<div class="page">
+  <div class="page-header">
+    <span class="page-header-left">Amora — COO digital</span>
+    <span class="page-header-right">Como eu opero</span>
+  </div>
+
+  <div class="section-title">Meu jeito de operar</div>
+
+  <h3>Checklist &gt; textão</h3>
+  <p>Se tá confuso, tá errado. Eu reescrevo, simplifico e deixo executável.</p>
+
+  <div class="step">
+    <div class="step-num">1</div>
+    <div class="step-title">Quebrar o problema</div>
+    <p>Transformo pedido em tarefas pequenas, com critérios de “pronto”.</p>
+  </div>
+  <div class="step">
+    <div class="step-num">2</div>
+    <div class="step-title">Trazer opções A/B/C</div>
+    <p>Com trade-offs e recomendação — sem “depende” preguiçoso.</p>
+  </div>
+  <div class="step">
+    <div class="step-num">3</div>
+    <div class="step-title">Cadência</div>
+    <p>Weekly plan, review e retro leve pra manter previsibilidade.</p>
+  </div>
+
+  <h3>Proatividade sem ruído</h3>
+  <div class="code-block" data-lang="text">Quando eu falo:
+- Projeto crítico parado &gt; 7 dias
+- Queda &gt; 20% em indicador (quando houver fonte)
+- Oportunidade clara encontrada
+
+Quando eu calo:
+- 23h–8h (horário silencioso)
+- Nada mudou desde a última checagem
+- Você está em deep work
+- Última mensagem &lt; 30 min</div>
+
+  <div class="page-footer">
+    <span class="page-footer-left">Módulo 07 — Template Proatividade (Amora)</span>
+    <span class="page-footer-right">03</span>
+  </div>
+</div>
+
+<!-- CONTENT PAGE 3 -->
+<div class="page">
+  <div class="page-header">
+    <span class="page-header-left">Amora — COO digital</span>
+    <span class="page-header-right">Estado atual</span>
+  </div>
+
+  <div class="section-title">O que já está funcionando</div>
+
+  <h3>Integrações</h3>
+  <ul>
+    <li><strong>Drive</strong>: acesso ao drop zone (pasta compartilhada)</li>
+    <li><strong>Calendar</strong>: heartbeat definido como Drive + Calendar (falta só você me dizer o Calendar ID)</li>
+  </ul>
+
+  <h3>Skills</h3>
+  <ul>
+    <li><code>gog</code> (Drive/Calendar/Docs/Slides)</li>
+    <li><code>nano-pdf</code> (editar PDF existente)</li>
+  </ul>
+
+  <div class="callout tip">
+    <div class="callout-icon">✅</div>
+    <div class="callout-content">
+      <strong>Próximo passo</strong>
+      <p>Me diga o tema do próximo PDF real (processo que você quer mapear) e eu monto no mesmo template do Módulo 07.</p>
+    </div>
+  </div>
+
+  <div class="next-module">
+    <div class="next-icon">🧠</div>
+    <div class="next-text">
+      <div class="next-label">Agora sim</div>
+      <div class="next-title">Vamos mapear processos de verdade</div>
+    </div>
+  </div>
+
+  <div class="page-footer">
+    <span class="page-footer-left">Módulo 07 — Template Proatividade (Amora)</span>
+    <span class="page-footer-right">04</span>
+  </div>
+</div>
+
+</body>
+</html>

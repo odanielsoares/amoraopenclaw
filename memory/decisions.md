@@ -36,3 +36,15 @@
   - Última mensagem há <30min
 - **Trade-off:** mais iniciativa e cadência vs risco de “ruído”; mitigado por regras de silêncio e pedidos de OK antes de criar/enviar algo externo.
 - **Status:** vigente
+
+## 2026-02-23 — Heartbeat 2x por dia (anti-spam)
+- **Decisão:** rodar heartbeat apenas 2x por dia (08:00 e 19:00 UTC-3) com regra anti-spam (só avisar se houver novidade/risco).
+- **Contexto:** heartbeat a cada 30min estava gerando ruído e repetição da mesma mensagem.
+- **Trade-off:** menos frequência de check automático vs redução drástica de spam.
+- **Status:** vigente (cron definitivo ainda a formalizar)
+
+## 2026-02-23 — Calendar padrão = primary
+- **Decisão:** monitorar calendário `primary` da conta daniels.soares@outlook.com.
+- **Contexto:** desbloquear integração gog + heartbeat.
+- **Trade-off:** simplifica setup inicial vs menor granularidade futura.
+- **Status:** vigente

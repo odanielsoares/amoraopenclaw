@@ -12,7 +12,16 @@
 ---
 
 ## OpenClaw — Setup inicial (2026-02-22)
-- **Objetivo:** configurar OpenClaw com Telegram, modelos, failover e memória.
-- **Status:** ativo (infra ok; gog Calendar ok; falta rotina do heartbeat + consolidar memória/feedback loops)
-- **Próximo passo:** implementar rotina do heartbeat **Drive + Calendar** (calendário: `primary`, conta: `daniels.soares@outlook.com`) + rodar `openclaw memory index --all`.
-- **Bloqueios:** definir onde persistir/configurar `GOG_KEYRING_PASSWORD` e automatizar o check de calendário (24–48h, conflito, <2h).
+- **Objetivo:** configurar OpenClaw com Telegram, modelos, failover, memória e heartbeat inteligente.
+- **Status:** ativo (infra ok; gog Calendar integrado; speech-to-text via OpenAI disponível; cron 08:00/19:00 ativo)
+- **Conquistas recentes:**
+  - Integração `gog` com Google Calendar (conta: daniels.soares@outlook.com, calendário `primary`).
+  - Google Calendar API habilitada no projeto `amora-api`.
+  - Configuração de `GOG_KEYRING_PASSWORD` persistido via `/root/.openclaw/.env` e carregado pelo systemd do openclaw-gateway.
+  - Heartbeat 30min desativado.
+  - Cron 2x/dia (08:00 e 19:00 UTC-3) criado e ativo.
+- **Próximo passo:**
+  - Implementar lógica automática definitiva de conflito e alerta <2h.
+  - Rodar `openclaw memory index --all`.
+- **Bloqueios:**
+  - Nenhum bloqueio estrutural ativo.

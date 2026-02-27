@@ -13,8 +13,10 @@
 - Perguntar por bloqueio (1 pergunta objetiva).
 
 ### 3) Caixa de entrada / calendário (SÓ se integrados)
-- **Google Calendar (via gog)**: monitorar o calendário principal de `Daniels.soares@outlook.com`.
-- Checar eventos nas próximas 24-48h e avisar se houver conflito ou evento <2h.
+- **Google Calendar (via gog)**: monitorar `primary` (conta: `daniels.soares@outlook.com`).
+- Checar eventos nas próximas 24-48h e avisar se houver:
+  - conflito (eventos sobrepostos)
+  - evento começando em **<2h**
 
 ### 4) Saúde do sistema (OpenClaw)
 - Se houve erro de canal/modelo nas últimas horas, sinalizar.
