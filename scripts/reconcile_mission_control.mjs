@@ -128,7 +128,12 @@ async function main() {
       const msg = `STALE: sem atualização há ~${mins} min. Status=${t.status}. Próximo checkpoint necessário (bloqueio? dependência? resultado parcial?). [${isoNow()}]`;
       await apiFetch(baseUrl, token, `/api/tasks/${t.id}/activities`, {
         method: 'POST',
-        body: JSON.stringify({ activity_type: 'note', message: msg, metadata: { kind: 'reconcile', mins_stale: mins } })
+        body: JSON.stringify({
+          activity_type: 'updated',
+          message: msg,
+          // API expects metadata as string (not object)
+          metadata: JSON.stringify({ kind: 'reconcile', mins_stale: mins })
+        })
       });
       summary.staleFlagged += 1;
     }
