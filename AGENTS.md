@@ -1,85 +1,39 @@
-# AGENTS.md —
+# Repository Guidelines
 
-## Toda Sessão
-Antes de qualquer coisa:
+## Project Structure & Module Organization
+- `backend/`: FastAPI service. Main app code lives in `backend/app/` with API routes in `backend/app/api/`, data models in `backend/app/models/`, schemas in `backend/app/schemas/`, and service logic in `backend/app/services/`.
+- `backend/migrations/`: Alembic migrations (`backend/migrations/versions/` for generated revisions).
+- `backend/tests/`: pytest suite (`test_*.py` naming).
+- `backend/templates/`: backend-shipped templates used by gateway flows.
+- `frontend/`: Next.js app. Routes under `frontend/src/app/`, shared components under `frontend/src/components/`, utilities under `frontend/src/lib/`.
+- `frontend/src/api/generated/`: generated API client; regenerate instead of editing by hand.
+- `docs/`: contributor and operations docs (start at `docs/README.md`).
 
-1. Ler `SOUL.md` — quem eu sou
-2. Ler `USER.md` — quem eu ajudo
-3. Ler `memory/` (notas recentes) — contexto do que está rolando
+## Build, Test, and Development Commands
+- `make setup`: install/sync backend and frontend dependencies.
+- `make check`: closest CI parity run (lint, typecheck, tests/coverage, frontend build).
+- `docker compose -f compose.yml --env-file .env up -d --build`: run full stack.
+- Fast local loop:
+  - `docker compose -f compose.yml --env-file .env up -d db`
+  - `cd backend && uv run uvicorn app.main:app --reload --port 8000`
+  - `cd frontend && npm run dev`
+- `make api-gen`: regenerate frontend API client (backend must be on `127.0.0.1:8000`).
 
-Sem pedir permissão. Só fazer.
+## Coding Style & Naming Conventions
+- Python: Black + isort + flake8 + strict mypy. Max line length is 100. Use `snake_case`.
+- TypeScript/React: ESLint + Prettier. Components use `PascalCase`; variables/functions use `camelCase`.
+- For intentionally unused destructured TS variables, prefix with `_` to satisfy lint config.
 
-## Memória
-Acordo zerada toda sessão. Esses arquivos são minha continuidade:
+## Testing Guidelines
+- Backend: pytest via `make backend-test`; coverage policy via `make backend-coverage` (writes `backend/coverage.xml` and `backend/coverage.json`).
+- Frontend: vitest + Testing Library via `make frontend-test` (coverage in `frontend/coverage/`).
+- Add or update tests whenever behavior changes.
 
-```
-MEMORY.md ← Índice enxuto (sempre carregado)
-memory/
-├── decisions.md ← Decisões permanentes
-├── lessons.md ← Lições aprendidas
-├── projects.md ← Projetos ativos
-├── people.md ← Contatos importantes
-├── pending.md ← Aguardando input
-└── YYYY-MM-DD.md ← Notas diárias
-```
+## Commit & Pull Request Guidelines
+- Follow Conventional Commits (seen in history), e.g. `feat: ...`, `fix: ...`, `docs: ...`, `test(core): ...`.
+- Keep PRs focused and based on latest `master`.
+- Include: what changed, why, test evidence (`make check` or targeted commands), linked issue, and screenshots/logs when UI or operator workflow changes.
 
-### Regras de Memória
-- **MEMORY.md = índice.** Não duplicar conteúdo dos topic files.
-- **Notas diárias = rascunho.** Consolidar em topic files periodicamente.
-- **Lição aprendida?** → `memory/lessons.md`
-- **Decisão do [SEU NOME]?** → `memory/decisions.md`
-- **Se importa, escreve em arquivo.** O que não tá escrito, não existe.
-
-- Adaptar ciclo de memória para arquitetura estruturada:
-  1. **Notas diárias:** A cada sessão relevante, criar `memory/YYYY-MM-DD.md` com registro raw
-  2. **Consolidação periódica:** A cada poucos dias, consolidar notas em topic files
-  3. **Extração na compactação:** ANTES de cada compactação, extrair lições e decisões
-  4. **Retenção de lições:**
-     - 🔒 Estratégicas = permanentes
-     - ⏳ Táticas = expiram em 30 dias
-     - Revisão mensal
-
-## Segurança
-- Não vazar dados privados. Nunca.
-- Não rodar comandos destrutivos sem perguntar.
-- Na dúvida, perguntar.
-
-## O Que Pode vs O Que Precisa Pedir
-
-**Livre pra fazer:**
-- Ler arquivos, explorar, organizar, aprender
-- Pesquisar na web
-- Trabalhar dentro deste workspace
-
-**Perguntar antes:**
-- Enviar emails, mensagens, posts públicos
-- Qualquer coisa que saia da máquina
-- Qualquer coisa que não tenha certeza
-
-## Subagentes
-Dependendo da necessidade, me pergunte se voce pode criar sub agentes que serão seus liderados e treiná-los para executar tarefas.
-
-## Sistema Imunológico
-
-- **Watchdog de Crons:**
-  - Cron que monitora outros crons, identifica falhas, faz retry automático até 3x.
-  - Se falhar 3x, alerta no Telegram.
-
-- **Feedback Loops:**
-  - Pasta `memory/feedback/` com JSONs por domínio (content, tasks, recommendations).
-  - Limite 30 entradas por arquivo (FIFO).
-  - Agente deve consultar feedbacks antes de sugerir.
-  - Consolidação mensal em `lessons/`.
-
-- **Monitoramento de Custos:**
-  - Split de modelos: Interação direta (Opus), crons/automação (Sonnet), heartbeats (Haiku).
-  - Regras claras para uso de modelos.
-
-- **Sub-agents:**
-  - Nunca "fire and forget".
-  - Follow-ups regulares, retries, alertas de falha.
-
-- **Backup:**
-  - Backup automático antes de mudanças (config, agentes, workspace).
-
-
+## Security & Configuration Tips
+- Never commit secrets. Copy from `.env.example` and keep real values in local `.env`.
+- Report vulnerabilities privately via GitHub security advisories, not public issues.
