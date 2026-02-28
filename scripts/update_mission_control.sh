@@ -47,7 +47,13 @@ mkdir -p "$LOG_DIR"
   fi
 
   echo "-- nginx reload (best-effort) --"
-  nginx -t && systemctl reload nginx || true
+  if command -v nginx >/dev/null 2>&1; then
+    nginx -t && systemctl reload nginx || true
+  elif [ -x /usr/sbin/nginx ]; then
+    /usr/sbin/nginx -t && systemctl reload nginx || true
+  else
+    echo "WARN: nginx binary not found; skipping reload"
+  fi
 
   echo "-- healthcheck --"
   curl -fsS -o /dev/null -w "HTTP %{http_code}\n" https://odanielsoares.tech || true

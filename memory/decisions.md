@@ -2,6 +2,7 @@
 
 - Hospedar Mission Control no domínio principal odanielsoares.tech (sem subdomínio). Motivo: simplicidade de DNS/SSL e controle central.
 - Fazer deploy fresh quando um sistema acumular remendos e ficar instável (apagar e re-clonar do repo oficial). Motivo: reduzir tempo perdido em remendos e processos órfãos.
+- Mission Control é a fonte visual de acompanhamento: toda tarefa solicitada no chat deve ser criada imediatamente no MC e atualizada em tempo real (status + activities). Deve existir rotina de reconciliação periódica para garantir sincronia e detectar tarefas stale.
 - Não adicionar camadas intermediárias desnecessárias (ex.: bridge Python) quando o projeto já suporta integração direta com o Gateway.
 - Usar PM2 para gerenciar processos (mission-control, gateway-bridge) em produção.
 - Inicializar agentes no Mission Control lendo configs em shared/agents_configs/ e sincronizar SOUL.md/USER.md/AGENTS.md com os registros locais do MC via API.
