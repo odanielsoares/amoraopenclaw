@@ -1,9 +1,6 @@
-# Pendências (atualizado)
+# Pendências (atualizado 2026-02-28)
 
-- [ ] Validar estabilidade por 15–30 minutos (sem connect() failed no nginx) — Dono: Amora (executor)
-- [ ] Confirmar que todos os clientes em teste (incluindo os do Dan) foram limpos de service workers e cache — Dono: Dan/Amora
-- [ ] Finalizar criação de usuário(s) persistentes (email/senha) no backend ou manter token local como método de acesso — Dono: Dan/Amora
-- [ ] Revisar política de exposure: bloquear permanentemente /chat e /sessions até integrar autenticação e autorização de gateway — Dono: Amora
-- [ ] Documentar deploy final (nginx conf, pm2 commands, logs path) e commitar no repo privado (sem secrets) — Dono: Amora
-- [ ] Se o OpenClaw Gateway exigir credenciais adicionais, colocar token seguro no secret manager e apontar BACKEND/.env — Dono: Dan (fornecer token) / Amora (configurar)
-
+- [ ] Testar fluxo completo no Mission Control: criar task → AI planning → agent dispatch → execução
+- [ ] Ativar agentes Content e Scraper como agentes reais no Mission Control
+- [ ] Documentar tokens e config de produção (sem expor secrets)
+- [ ] Configurar gateway para aceitar conexões remotas (se necessário)

@@ -1,16 +1,56 @@
-# Lições aprendidas (atualizado)
+# Lições aprendidas (atualizado 2026-02-28)
 
-- Nginx & WebSocket: o handshake WebSocket falha se o proxy redirecionar (301) ou não encaminhar cabeçalhos Upgrade/Connection. Sempre garantir map $http_upgrade no config principal (fora dos server {}) e location = /ws com proxy_http_version 1.1 e proxy_set_header Connection $connection_upgrade.
-- Testar com curl não substitui um cliente WebSocket real: curl pode retornar 200, mas handshake WSS pode falhar por HTTP/2 ou ALPN. Use wscat / Python websockets para testar end-to-end.
-- Clientes podem manter UI antiga por causa de service workers/IndexedDB/caches; ter uma rota /clear-client com JS para unregister + clearStorage é útil para testes de corte.
-- Durante deploys intensivos, reiniciar serviços sem coordenação gera 502/503 (upstream refused). Ordem: subir bridge (ws) antes do app, garantir healthcheck up → depois apontar nginx.
-- Remover processos/artefatos antigos é crítico: processos antigos (arnaldo) ou sites estáticos em /var/www/html podem confundir a tomada de posse do domínio. Sempre fazer backup e um checklist de stop/delete antes do cutover.
-- Quando algo der errado e você precise tirar o site do ar imediatamente, bloquear 80/443 via iptables é rápido e eficaz; documentar procedimento de rollback.
+## 🔒 Estratégicas (permanentes)
 
-O que funcionou
-- PM2 + wrapper start script para Next.js (estável após configuração). Build do repo criou rotas e assets corretamente.
-- bridge (gateway-bridge) conseguiu autenticar com o OpenClaw Gateway quando a URL/token estavam corretos.
+### Deploy do zero > consertar incremental
+**Contexto:** Na primeira tentativa de deploy do Mission Control, gastamos horas tentando fazer funcionar um repo/build que tinha problemas acumulados — backend WebSocket intermediário customizado, bridge Python, mocks, configs nginx remendadas, processos PM2 órfãos, caches de service worker, etc. Cada correção gerava um novo problema. O sistema ficou num estado frankenstein onde ninguém sabia mais o que estava rodando.
 
-O que não funcionou bem
-- Mudanças rápidas no nginx sem escapar $ nas write scripts causaram erros de sintaxe (invalid number of arguments in map/proxy_set_header). Sempre testar nginx -t e escapar $ quando gravar configs via scripts.
+**O que deu errado (tentativas anteriores):**
+- Tentei adaptar/remendar um deploy existente em vez de começar limpo
+- Criei camadas desnecessárias (bridge Python entre MC e Gateway) quando o Mission Control já fala WebSocket direto com o Gateway
+- Acumulei processos PM2 antigos (arnaldo, ws-tls-proxy, mock servers) que conflitavam
+- Nginx foi reconfigurado várias vezes com erros de sintaxe ($ não escapado em scripts)
+- Caches e service workers dos clientes mantinham UI antiga mesmo após deploy novo
+- Fiz muitas mudanças pequenas sem parar pra reavaliar a abordagem
 
+**O que funcionou (deploy fresh):**
+- Apagar tudo e partir do zero: `pm2 delete all`, clone limpo do repo oficial
+- Seguir exatamente o README: `git clone` → `npm install` → `.env.local` → `npm run build` → PM2
+- Nginx config simples: um arquivo, um proxy, sem bridge intermediária
+- Zero customização desnecessária — o projeto já funciona out-of-the-box
+- Total: ~5 minutos do clone ao site rodando com 200 OK e Gateway conectado
+
+**Lição:** Quando um deploy acumula remendos e fica instável, é mais rápido e seguro jogar fora e começar do zero do que tentar consertar camada por camada. Resistir ao instinto de "salvar o trabalho já feito" — o custo de consertar geralmente é maior que o de refazer.
+
+### Não adicionar camadas que o projeto não precisa
+O Mission Control já se conecta direto ao OpenClaw Gateway via WebSocket. Criar uma bridge Python intermediária foi complexidade desnecessária que só adicionou pontos de falha. Sempre ler o README e entender a arquitetura antes de sair implementando.
+
+### Ler o README primeiro, implementar depois
+Na primeira tentativa, assumi como o projeto funcionava e criei componentes extras. Na segunda, segui o README ao pé da letra e funcionou de primeira.
+
+---
+
+## ⏳ Táticas (expiram em 30 dias)
+
+### Nginx & WebSocket
+- Handshake WebSocket falha se proxy redirecionar (301) ou não encaminhar Upgrade/Connection
+- Sempre usar `map $http_upgrade` no config principal e `proxy_http_version 1.1`
+- Testar com `nginx -t` antes de reload
+- Escapar `$` quando gravar configs via scripts/heredocs
+
+### PM2
+- Sempre `pm2 delete all` + `pm2 save` antes de deploy limpo
+- Nomear processos de forma clara (mission-control, não nomes genéricos)
+
+### Testes
+- `curl -sk https://localhost -w "%{http_code}"` pra validação rápida
+- API do Mission Control: `GET /api/openclaw/status` mostra se Gateway está conectado
+- Testar WebSocket com wscat, não curl
+
+### Service Workers / Cache
+- Clientes podem manter UI antiga por service workers/cache
+- Em caso de corte, ter rota /clear-client ou orientar hard refresh
+
+### Segurança rápida
+- Bloquear 80/443 via iptables é eficaz pra tirar site do ar emergencialmente
+- Nunca commitar tokens; usar .env.local (gitignored)
