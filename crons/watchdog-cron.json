@@ -1,0 +1,16 @@
+{
+  "name": "Watchdog - Monitor de Crons",
+  "schedule": {
+    "kind": "cron",
+    "expr": "0 8 * * *",
+    "tz": "America/Sao_Paulo"
+  },
+  "sessionTarget": "isolated",
+  "payload": {
+    "kind": "agentTurn",
+    "message": "Checar saúde de todos os crons. Listar os que falharam nas últimas 24h. Fazer retry dos que falharam. Se algum falhar 3x, alertar no Telegram."
+  },
+  "delivery": {
+    "mode": "announce"
+  }
+}

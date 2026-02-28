@@ -6,28 +6,26 @@ Este arquivo registra o histórico e aprendizados das sessões para continuidade
 
 # Notas diárias - 28 de fevereiro de 2026
 
-- Conversa sobre hospedagem do projeto odanielsoares.tech
-- Dominio confirmado: odanielsoares.tech
-- Aguardando detalhes do servidor para iniciar hospedagem
-- Decisões importantes registradas em memory/decisions.md
-- Próximos passos definidos: confirmar ambiente, acessar servidor, deploy
-- Projeto Mission Control buildado e deployado com agente Amora ativo
-- Front consumindo websocket do backend real
-- Configurado nginx para proxy reverso
-- Limpeza total do histórico git para compliance com segurança
-- Arquitetura de memória estruturada implementada
+- Configurações e correções feitas para integração real do backend e frontend no Mission Control
+- Backend WebSocket simples implementado e rodando para testes
+- Configuração rx nginx proxy reverso para WebSocket
+- Correções em IDs e mocks para alinhamento
+- Implementação iniciada para backend WebSocket intermediário para gateway real
+- Tentativas e ajustes no ambiente Python e PM2
+- Limpeza de histórico git para compliance
+- Estrutura de memória implementada para decisões, lições, pendências
+- Sistema imunológico básico configurado com watchdog e feedback loops
+- Rotinas de build e deploy automatizadas
 
 # Decisões permanentes
 
-## Projeto odanielsoares.tech
+- Usar backend WebSocket simples inicialmente para teste
+- Adotar estrutura de memória para continuidade e controle
+- Priorizar integração com gateway real para eventos verdadeiros
+- Trabalho incremental e iterativo para backend intermediário
 
-- Dominio definido para hospedagem: odanielsoares.tech
-- Status: projeto Mission Control buildado e deployado com agente Amora ativo
-- Front consumindo websocket do backend real
-- Configurado nginx para proxy reverso
+# Pendências
 
-# Pendências (aguardando input)
-
-- Ajustar e adicionar agentes futuros
-- Melhorar documentação do projeto
-- Implementar feedback loops para memória (opcional)
+- Completar integração e testes do backend intermediário
+- Refinar monitoramento e alertas de falha
+- Melhorar documentação e comunicação entre frente e backend

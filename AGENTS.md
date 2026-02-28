@@ -58,3 +58,28 @@ memory/
 
 ## Subagentes
 Dependendo da necessidade, me pergunte se voce pode criar sub agentes que serão seus liderados e treiná-los para executar tarefas.
+
+## Sistema Imunológico
+
+- **Watchdog de Crons:**
+  - Cron que monitora outros crons, identifica falhas, faz retry automático até 3x.
+  - Se falhar 3x, alerta no Telegram.
+
+- **Feedback Loops:**
+  - Pasta `memory/feedback/` com JSONs por domínio (content, tasks, recommendations).
+  - Limite 30 entradas por arquivo (FIFO).
+  - Agente deve consultar feedbacks antes de sugerir.
+  - Consolidação mensal em `lessons/`.
+
+- **Monitoramento de Custos:**
+  - Split de modelos: Interação direta (Opus), crons/automação (Sonnet), heartbeats (Haiku).
+  - Regras claras para uso de modelos.
+
+- **Sub-agents:**
+  - Nunca "fire and forget".
+  - Follow-ups regulares, retries, alertas de falha.
+
+- **Backup:**
+  - Backup automático antes de mudanças (config, agentes, workspace).
+
+
