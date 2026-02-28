@@ -1,28 +1,25 @@
-# HEARTBEAT.md
+# HEARTBEAT.md - Template para Proatividade
 
-# Heartbeat = check-in periódico. O que tiver aqui vira um “prompt de auditoria rápida”.
-# Regra: só colocar coisas que você quer que eu cheque SEMPRE.
+## Checklist (a cada heartbeat)
+- [x] Compromissos próximos (24-48h)
+- [x] Tarefas pendentes / follow-ups atrasados
+- [x] Crons saudáveis
 
-## Checklist (a cada 30m ou 1h — ajuste no config)
+## Semanal (Segunda-feira)
+- [x] Revisar projetos ativos
+- [x] Consolidar notas diárias em topic files
+- [x] Atualizar MEMORY.md
 
-### 1) Pendências que dependem do Dan (puxar de memory/pending.md)
-- Listar itens abertos e sugerir o próximo passo mais simples.
+## Regras
+- **EVITAR notificações entre 22h-7h e fins de semana** (horários de foco protegidos)
+- Notificar só se houver algo urgente ou crítico
+- Se estiver tudo ok → responder com HEARTBEAT_OK
+- Trabalho de fundo como organização de memória será feito sem notificação
 
-### 2) Projetos parados (puxar de memory/projects.md)
-- Identificar projetos ativos sem avanço recente.
-- Perguntar por bloqueio (1 pergunta objetiva).
+## Modelo econômico
+- Usar Haiku para heartbeats (baixo custo, ~US$0.005 por pulse)
+- Rate limit: máximo de 6 heartbeats/dia
 
-### 3) Caixa de entrada / calendário (SÓ se integrados)
-- **Google Calendar (via gog)**: monitorar `primary` (conta: `daniels.soares@outlook.com`).
-- Checar eventos nas próximas 24-48h e avisar se houver:
-  - conflito (eventos sobrepostos)
-  - evento começando em **<2h**
-
-### 4) Saúde do sistema (OpenClaw)
-- Se houve erro de canal/modelo nas últimas horas, sinalizar.
-- Sugestão de comando: `openclaw status --deep` quando necessário.
-
-## Perguntas de foco (quando eu te interromper)
-- Qual é a 1 entrega de hoje?
-- Qual métrica a gente tá tentando mexer?
-- Qual trade-off você aceita agora?
+## Automações
+1. Checagem periódica a cada 4 horas para compromissos e crons
+2. Organização automática diária para consolidar memória e atualizar docs
