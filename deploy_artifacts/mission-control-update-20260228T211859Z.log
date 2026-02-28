@@ -91,3 +91,70 @@ Failed to check orchestra status: B [Error]: Dynamic server usage: Route /api/op
  ✓ Generating static pages (20/20)
    Finalizing page optimization ...
    Collecting build traces ...
+
+Route (app)                                  Size     First Load JS
+┌ ○ /                                        2.9 kB         97.6 kB
+├ ○ /_not-found                              873 B          88.1 kB
+├ ƒ /api/agents                              0 B                0 B
+├ ƒ /api/agents/[id]                         0 B                0 B
+├ ƒ /api/agents/[id]/openclaw                0 B                0 B
+├ ƒ /api/agents/discover                     0 B                0 B
+├ ƒ /api/agents/import                       0 B                0 B
+├ ○ /api/demo                                0 B                0 B
+├ ƒ /api/events                              0 B                0 B
+├ ƒ /api/events/stream                       0 B                0 B
+├ ƒ /api/files/download                      0 B                0 B
+├ ƒ /api/files/preview                       0 B                0 B
+├ ƒ /api/files/reveal                        0 B                0 B
+├ ƒ /api/files/upload                        0 B                0 B
+├ ○ /api/openclaw/models                     0 B                0 B
+├ ƒ /api/openclaw/orchestra                  0 B                0 B
+├ ƒ /api/openclaw/sessions                   0 B                0 B
+├ ƒ /api/openclaw/sessions/[id]              0 B                0 B
+├ ƒ /api/openclaw/sessions/[id]/history      0 B                0 B
+├ ○ /api/openclaw/status                     0 B                0 B
+├ ƒ /api/tasks                               0 B                0 B
+├ ƒ /api/tasks/[id]                          0 B                0 B
+├ ƒ /api/tasks/[id]/activities               0 B                0 B
+├ ƒ /api/tasks/[id]/deliverables             0 B                0 B
+├ ƒ /api/tasks/[id]/dispatch                 0 B                0 B
+├ ƒ /api/tasks/[id]/planning                 0 B                0 B
+├ ƒ /api/tasks/[id]/planning/answer          0 B                0 B
+├ ƒ /api/tasks/[id]/planning/approve         0 B                0 B
+├ ƒ /api/tasks/[id]/planning/poll            0 B                0 B
+├ ƒ /api/tasks/[id]/planning/retry-dispatch  0 B                0 B
+├ ƒ /api/tasks/[id]/subagent                 0 B                0 B
+├ ƒ /api/tasks/[id]/test                     0 B                0 B
+├ ƒ /api/webhooks/agent-completion           0 B                0 B
+├ ƒ /api/workspaces                          0 B                0 B
+├ ƒ /api/workspaces/[id]                     0 B                0 B
+├ ○ /settings                                4.19 kB        91.4 kB
+└ ƒ /workspace/[slug]                        26.3 kB         121 kB
++ First Load JS shared by all                87.2 kB
+  ├ chunks/117-591b9898a6fa0b89.js           31.6 kB
+  ├ chunks/fd9d1056-9583fa19bc194043.js      53.6 kB
+  └ other shared chunks (total)              1.95 kB
+
+
+ƒ Middleware                                 26.9 kB
+
+○  (Static)   prerendered as static content
+ƒ  (Dynamic)  server-rendered on demand
+
+-- pm2 restart --
+Use --update-env to update environment variables
+[PM2] Applying action restartProcessId on app [mission-control](ids: [ 0 ])
+[PM2] [mission-control](0) ✓
+┌────┬────────────────────┬─────────────┬─────────┬─────────┬──────────┬────────┬──────┬───────────┬──────────┬──────────┬──────────┬──────────┐
+│ id │ name               │ namespace   │ version │ mode    │ pid      │ uptime │ ↺    │ status    │ cpu      │ mem      │ user     │ watching │
+├────┼────────────────────┼─────────────┼─────────┼─────────┼──────────┼────────┼──────┼───────────┼──────────┼──────────┼──────────┼──────────┤
+│ 0  │ mission-control    │ default     │ N/A     │ fork    │ 266996   │ 0s     │ 1    │ online    │ 0%       │ 3.7mb    │ root     │ disabled │
+└────┴────────────────────┴─────────────┴─────────┴─────────┴──────────┴────────┴──────┴───────────┴──────────┴──────────┴──────────┴──────────┘
+[PM2] Saving current process list...
+[PM2] Successfully saved in /root/.pm2/dump.pm2
+-- nginx reload (best-effort) --
+/root/.openclaw/workspace/scripts/update_mission_control.sh: line 50: nginx: command not found
+-- healthcheck --
+curl: (22) The requested URL returned error: 502
+HTTP 502
+[20260228T211859Z] Mission Control update done
