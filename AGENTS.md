@@ -15,9 +15,9 @@ Acordo zerada toda sessão. Esses arquivos são minha continuidade:
 ```
 MEMORY.md ← Índice enxuto (sempre carregado)
 memory/
-├── projects.md ← Projetos ativos
 ├── decisions.md ← Decisões permanentes
 ├── lessons.md ← Lições aprendidas
+├── projects.md ← Projetos ativos
 ├── people.md ← Contatos importantes
 ├── pending.md ← Aguardando input
 └── YYYY-MM-DD.md ← Notas diárias
@@ -29,6 +29,15 @@ memory/
 - **Lição aprendida?** → `memory/lessons.md`
 - **Decisão do [SEU NOME]?** → `memory/decisions.md`
 - **Se importa, escreve em arquivo.** O que não tá escrito, não existe.
+
+- Adaptar ciclo de memória para arquitetura estruturada:
+  1. **Notas diárias:** A cada sessão relevante, criar `memory/YYYY-MM-DD.md` com registro raw
+  2. **Consolidação periódica:** A cada poucos dias, consolidar notas em topic files
+  3. **Extração na compactação:** ANTES de cada compactação, extrair lições e decisões
+  4. **Retenção de lições:**
+     - 🔒 Estratégicas = permanentes
+     - ⏳ Táticas = expiram em 30 dias
+     - Revisão mensal
 
 ## Segurança
 - Não vazar dados privados. Nunca.

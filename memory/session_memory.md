@@ -11,6 +11,11 @@ Este arquivo registra o histórico e aprendizados das sessões para continuidade
 - Aguardando detalhes do servidor para iniciar hospedagem
 - Decisões importantes registradas em memory/decisions.md
 - Próximos passos definidos: confirmar ambiente, acessar servidor, deploy
+- Projeto Mission Control buildado e deployado com agente Amora ativo
+- Front consumindo websocket do backend real
+- Configurado nginx para proxy reverso
+- Limpeza total do histórico git para compliance com segurança
+- Arquitetura de memória estruturada implementada
 
 # Decisões permanentes
 
@@ -25,4 +30,4 @@ Este arquivo registra o histórico e aprendizados das sessões para continuidade
 
 - Ajustar e adicionar agentes futuros
 - Melhorar documentação do projeto
-
+- Implementar feedback loops para memória (opcional)

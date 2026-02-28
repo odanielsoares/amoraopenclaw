@@ -1,8 +1,12 @@
 # Decisões permanentes
 
-## Projeto odanielsoares.tech
+**Propósito:** Registrar decisões estratégicas e que não devem se perder.
 
-- Dominio definido para hospedagem: odanielsoares.tech
-- Status: aguardando detalhes do servidor para iniciar hospedagem
-- Próximo passo: confirmar ambiente e acessar para deploy
+## Formato
+- Título da decisão
+- Data
+- Contexto
+- Decisão tomada
+- Impactos
+- Responsável
 

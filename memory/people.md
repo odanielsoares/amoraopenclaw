@@ -1,15 +1,10 @@
-# people.md — Pessoas & preferências
+# Pessoas e contatos
 
-**Propósito:** registrar pessoas importantes e como se comunicar/trabalhar com elas.
+**Propósito:** Lista de membros, parceiros, contatos importantes.
 
-## Formato (padrão)
-- **Nome:**
-- **Relação:**
-- **Preferências:**
-- **Notas importantes:**
+## Formato
+- Nome
+- Função
+- Contato
+- Notas relevantes
 
----
-
-## Daniel (Dan) — dono do sistema
-- **Preferências de comunicação:** checklist, passo a passo, sem enrolação; quer contrapontos e concretude (objetivo/métrica/trade-off/próximo passo).
-- **Estilo:** metódico; 80% confiança + iteração.
