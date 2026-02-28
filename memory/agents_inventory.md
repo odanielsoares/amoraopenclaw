@@ -1,15 +1,20 @@
 # Inventário de Agentes (atualizado 2026-02-28)
 
-## Ativos no Gateway
+## Ativos
 | Agente | Papel | Nível | Modelo | Status |
 |--------|-------|-------|--------|--------|
-| Amora | COO / Hub | L4 | Opus | Ativo — sessão principal |
+| Amora | COO / Hub | L4 | Opus | Ativo — sessão principal, Gateway + Mission Control |
+| Claudio | Inteligência de Conteúdo — AI & Tech | L1 | GPT | Registrado no Mission Control, aguardando credenciais Twitter/X |
 
-## Planejados (ainda não operacionais)
+## Planejados
 | Agente | Papel | Nível | Modelo | Status |
 |--------|-------|-------|--------|--------|
-| Content | Produção de conteúdo | L1 | Sonnet | Config criada, não ativado |
 | Scraper | Coleta de dados | L1 | Sonnet | Config criada, não ativado |
+
+## Configs
+- Amora: shared/agents_configs/Amora/SOUL.md
+- Claudio: shared/agents_configs/Claudio/SOUL.md + CONFIG.md
+- Scraper: shared/agents_configs/Scraper/SOUL.md
 
 ## Infraestrutura
 - Gateway: ws://127.0.0.1:18789 (loopback)
