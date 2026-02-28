@@ -1,7 +1,9 @@
 const OpenClawWebSocketClient = require('./ws-gateway-client');
 
 async function test() {
-  const client = new OpenClawWebSocketClient('ws://127.0.0.1:18789', process.env.OPENCLAW_GATEWAY_TOKEN || '3102525e009ce729fc848b52c5312af3bf39ee69fb888978');
+  const token = process.env.OPENCLAW_GATEWAY_TOKEN;
+  if (!token) throw new Error('Missing OPENCLAW_GATEWAY_TOKEN');
+  const client = new OpenClawWebSocketClient('ws://127.0.0.1:18789', token);
   await client.connect();
   
   console.log('Spawnando agentes...');
