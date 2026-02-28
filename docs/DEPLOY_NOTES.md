@@ -51,8 +51,8 @@ server {
 
 ## DNS
 Para funcionar em qualquer rede (IPv4 + IPv6):
-- `A @` → IPv4 do servidor (ex.: `103.199.184.152`)
-- `AAAA @` → IPv6 do servidor (ex.: `2a02:4780:14:fe69::1`)
+- `A @` → IPv4 do servidor (ex.: `<SERVER_IPV4>`)
+- `AAAA @` → IPv6 do servidor (ex.: `<SERVER_IPV6>`)
 - Recomenda-se também `A www` e `AAAA www` (em vez de CNAME) para evitar caches estranhos.
 
 ## Segredos
