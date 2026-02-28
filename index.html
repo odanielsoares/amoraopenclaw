@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <title>Projeto OpenClaw - Esquema Completo</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600&display=swap');
+    body {
+      font-family: 'Space Grotesk', sans-serif;
+      background: #0a0a0f;
+      color: #f1f1f6;
+      margin: 0;
+      padding: 20px;
+      line-height: 1.6;
+    }
+    h1, h2, h3 {
+      color: #8b5cf6;
+    }
+    h1 {
+      font-size: 2.5rem;
+      margin-bottom: 0.5rem;
+    }
+    h2 {
+      font-size: 1.75rem;
+      margin-top: 2rem;
+      margin-bottom: 0.75rem;
+    }
+    h3 {
+      font-size: 1.25rem;
+      margin-top: 1.5rem;
+      margin-bottom: 0.5rem;
+      color: #22d3ee;
+    }
+    p {
+      color: #cbd5e1;
+      max-width: 720px;
+    }
+    ul {
+      max-width: 720px;
+      margin-left: 1.25rem;
+      margin-bottom: 1rem;
+    }
+    li {
+      margin-bottom: 0.5rem;
+    }
+    .section {
+      margin-bottom: 2rem;
+    }
+    .box {
+      background: #12121a;
+      border: 1px solid rgba(139, 92, 246, 0.25);
+      border-radius: 8px;
+      padding: 1rem;
+      max-width: 720px;
+      margin-bottom: 1rem;
+    }
+    .highlight {
+      color: #a78bfa;
+      font-weight: 600;
+    }
+    nav {
+      position: sticky;
+      top: 0;
+      background: #12121a;
+      border-bottom: 1px solid rgba(139, 92, 246, 0.15);
+      padding: 0.5rem 1rem;
+      margin-bottom: 1rem;
+      max-width: 720px;
+      z-index: 999;
+    }
+    nav a {
+      color: #8b5cf6;
+      margin-right: 1rem;
+      text-decoration: none;
+    }
+    nav a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+  <nav>
+    <a href="#intro">Introdução</a>
+    <a href="#multi-agentes">Multi-Agentes</a>
+    <a href="#memoria">Arquitetura de Memória</a>
+    <a href="#seguranca">Segurança</a>
+    <a href="#crons">Crons & Heartbeats</a>
+    <a href="#skills">Skills Essenciais</a>
+  </nav>
+  <main>
+    <section class="section" id="intro">
+      <h1>Projeto OpenClaw - Esquema Completo</h1>
+      <p>Este site apresenta a arquitetura e avanços do projeto OpenClaw seguindo os padrões do Bruno Okamoto.</p>
+    </section>
+    <section class="section" id="multi-agentes">
+      <h2>Arquitetura Multi-Agentes</h2>
+      <div class="box">
+        <p>A arquitetura usa um <span class="highlight">agente principal (hub) rodando GPT</span>, que orquestra <span class="highlight">agentes especialistas</span> (também GPT) para tarefas específicas.</p>
+        <ul>
+          <li>Hub: Gerencia contexto, despacho, revisão e coordenação (nível L4)</li>
+          <li>Especialista Conteúdo: Produz texto e documentos (nível L1)</li>
+          <li>Especialista Scraper: Coleta dados externos (nível L1)</li>
+        </ul>
+        <p>Os agentes compartilham contexto via pasta <code>shared/</code> contendo arquivos de configuração, outputs e lições aprendidas.
+        </p>
+      </div>
+    </section>
+    <section class="section" id="memoria">
+      <h2>Arquitetura de Memória</h2>
+      <div class="box">
+        <p>A memória é organizada em camadas para contornar limitações de contexto do modelo:</p>
+        <ul>
+          <li>Notas diárias em <code>memory/YYYY-MM-DD.md</code></li>
+          <li>Arquivos tópicos permanentes — <code>decisions.md</code>, <code>lessons.md</code>, <code>projects.md</code>, etc.</li>
+          <li>Consolidação automática: notas antigas são processadas e resumidas em arquivos tópicos</li>
+          <li>Compactação pós-contexto: extração de decisões, lições, bloqueadores antes de descartar histórico</li>
+          <li>Feedback loops para aprendizado contínuo</li>
+        </ul>
+      </div>
+    </section>
+    <section class="section" id="seguranca">
+      <h2>Segurança e Hardening</h2>
+      <div class="box">
+        <ul>
+          <li>Crítica: dmPolicy Telegram configurado como <span class="highlight">allowlist</span></li>
+          <li>Firewall UFW ativo bloqueando conexões indesejadas</li>
+          <li>Fail2ban protege SSH contra brute force</li>
+          <li>SSH configurado para <code>PermitRootLogin prohibit-password</code> (segurança)</li>
+          <li>Credenciais armazenadas externamente (.env, 1Password)</li>
+        </ul>
+      </div>
+    </section>
+    <section class="section" id="crons">
+      <h2>Crons & Heartbeats</h2>
+      <div class="box">
+        <ul>
+          <li>Crons essenciais criados para monitoramento e notificações</li>
+          <li>Exemplos: Heartbeat diário, checagem de agenda, revisão semanal</li>
+          <li>Rodando em modo isolado com <code>sessionTarget: isolated</code>, <code>agentTurn</code> e entrega em <code>announce</code></li>
+        </ul>
+      </div>
+    </section>
+    <section class="section" id="skills">
+      <h2>Skills Essenciais</h2>
+      <div class="box">
+        <ul>
+          <li>Google Workspace (gog) — já instalado e autenticado</li>
+          <li>1Password, healthcheck, openai-image-gen, openai-whisper-api, github, todoist-sync — para instalar</li>
+          <li>Configuração das credenciais e prompts para ativação proativa pendentes</li>
+        </ul>
+      </div>
+    </section>
+  </main>
+</body>
+</html>

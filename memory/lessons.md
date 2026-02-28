@@ -24,6 +24,11 @@
 - **Sinal de alerta:** erro de state inválido ou callback expirado.
 - **Ação padrão:** preparar previamente variável de ambiente (GOG_KEYRING_PASSWORD) e executar step 2 imediatamente após receber callback.
 
+## 2026-02-27 (estratégica) — NUNCA mexer em SSH/segurança de acesso sem confirmação
+- **Lição:** alterei PermitRootLogin sem verificar se Dan tinha SSH key. Quase travou acesso ao servidor.
+- **Sinal de alerta:** qualquer comando que altere sshd_config, firewall rules ou acesso remoto.
+- **Ação padrão:** Módulo 2 (segurança de infra) = Dan executa manualmente. Eu só audito, recomendo e gero comandos. NUNCA executar direto.
+
 ## 2026-02-23 (estratégica) — Heartbeat frequente sem regra de novidade vira ruído
 - **Lição:** checagem automática sem filtro de “mudança” gera spam e reduz confiança no sistema.
 - **Sinal de alerta:** mensagens repetidas com o mesmo status.

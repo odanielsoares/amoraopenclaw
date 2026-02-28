@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<title>Escritório Virtual OpenClaw - Dashboard</title>
+<style>
+  body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: #111;
+    color: #eee;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+  }
+  header {
+    background: #222;
+    padding: 1em;
+    text-align: center;
+    font-size: 1.5em;
+    color: #8b5cf6;
+    box-shadow: 0 2px 12px #330066cc;
+  }
+  #office {
+    position: relative;
+    width: 100vw;
+    height: calc(100vh - 3.5em);
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    padding: 10px;
+    background: linear-gradient(135deg, #1a1a25, #12121a);
+  }
+  .sector {
+    flex: 1 1 30vw;
+    min-height: 300px;
+    background: #222235;
+    border-radius: 12px;
+    padding: 10px;
+    border: 1px solid #333399;
+  }
+  .sector h2 {
+    border-bottom: 1px solid #8b5cf6;
+    color: #a78bfa;
+    margin: 0 0 10px 0;
+    padding-bottom: 5px;
+  }
+  .agent {
+    padding: 10px;
+    background: #1c1c30;
+    border: 1px solid #5555cc;
+    border-radius: 10px;
+    margin: 5px 0;
+    cursor: pointer;
+    transition: background 0.3s ease;
+  }
+  .agent:hover {
+    background: #2a2a5a;
+  }
+  .avatar {
+    width: 40px;
+    height: 40px;
+    background: #8b5cf6;
+    border-radius: 50%;
+    display: inline-block;
+    vertical-align: middle;
+    margin-right: 10px;
+  }
+  .agent-info {
+    display: inline-block;
+    vertical-align: middle;
+  }
+  .agent-name {
+    font-weight: bold;
+  }
+  .agent-status {
+    font-style: italic;
+    font-size: 0.85em;
+    color: #ccc;
+  }
+</style>
+</head>
+<body>
+<header>Escritório Virtual OpenClaw - Dashboard</header>
+<div id="office">
+  <section class="sector" id="inbox">
+    <h2>Inbox / Messages</h2>
+    <div class="agent" id="agent1"><div class="avatar"></div><div class="agent-info"><div class="agent-name">Amora</div><div class="agent-status">Idle</div></div></div>
+    <div class="agent" id="agent2"><div class="avatar"></div><div class="agent-info"><div class="agent-name">Conteúdo</div><div class="agent-status">Executing</div></div></div>
+  </section>
+  <section class="sector" id="research">
+    <h2>Research</h2>
+    <div class="agent" id="agent3"><div class="avatar"></div><div class="agent-info"><div class="agent-name">Scraper</div><div class="agent-status">Waiting Input</div></div></div>
+  </section>
+  <section class="sector" id="planning">
+    <h2>Planning</h2>
+  </section>
+  <section class="sector" id="execution">
+    <h2>Execution</h2>
+  </section>
+  <section class="sector" id="waiting">
+    <h2>Waiting / Idle</h2>
+  </section>
+  <section class="sector" id="errors">
+    <h2>Errors / Blocked</h2>
+  </section>
+  <section class="sector" id="completed">
+    <h2>Completed</h2>
+  </section>
+</div>
+<script>
+// Exemplo simples de movimentao de agentes - placeholder para efeitos visuais
+const agents = {
+  agent1: { name: 'Amora', status: 'Idle', currentSector: 'inbox' },
+  agent2: { name: 'Conteúdo', status: 'Executing', currentSector: 'inbox' },
+  agent3: { name: 'Scraper', status: 'Waiting Input', currentSector: 'research' },
+};
+
+function moveAgent(agentId, newSector) {
+  const agentElem = document.getElementById(agentId);
+  if (!agentElem) return;
+
+  const oldSector = agents[agentId].currentSector;
+  const oldSectorElem = document.getElementById(oldSector);
+
+  if (!oldSectorElem) return;
+
+  oldSectorElem.removeChild(agentElem);
+  const newSectorElem = document.getElementById(newSector);
+  newSectorElem.appendChild(agentElem);
+  agents[agentId].currentSector = newSector;
+  agentElem.querySelector('.agent-status').textContent = agents[agentId].status;
+}
+
+// Movimento automático para demonstrao
+setTimeout(() => moveAgent('agent2', 'planning'), 3000);
+setTimeout(() => moveAgent('agent3', 'execution'), 6000);
+setTimeout(() => moveAgent('agent1', 'completed'), 9000);
+</script>
+</body>
+</html>
