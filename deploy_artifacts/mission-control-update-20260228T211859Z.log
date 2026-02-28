@@ -1,0 +1,93 @@
+[20260228T211859Z] Mission Control update start
+dir=/root/mission-control
+-- git status (before) --
+## deploy/mission-control-2026-02-28...dan/deploy/mission-control-2026-02-28
+-- git fetch/pull --
+Fetching origin
+Fetching dan
+Already up to date.
+-- npm install/build --
+npm warn deprecated inflight@1.0.6: This module is not supported, and leaks memory. Do not use it. Check out lru-cache if you want a good and tested way to coalesce async requests by a key value, which is much more comprehensive and powerful.
+npm warn deprecated @humanwhocodes/config-array@0.13.0: Use @eslint/config-array instead
+npm warn deprecated rimraf@3.0.2: Rimraf versions prior to v4 are no longer supported
+npm warn deprecated @humanwhocodes/object-schema@2.0.3: Use @eslint/object-schema instead
+npm warn deprecated glob@7.2.3: Glob versions prior to v9 are no longer supported
+npm warn deprecated eslint@8.57.1: This version is no longer supported. Please see https://eslint.org/version-support for other options.
+npm warn deprecated next@14.2.21: This version has a security vulnerability. Please upgrade to a patched version. See https://nextjs.org/blog/security-update-2025-12-11 for more details.
+
+added 445 packages, and audited 446 packages in 21s
+
+163 packages are looking for funding
+  run `npm fund` for details
+
+6 vulnerabilities (1 moderate, 4 high, 1 critical)
+
+To address issues that do not require attention, run:
+  npm audit fix
+
+To address all issues (including breaking changes), run:
+  npm audit fix --force
+
+Run `npm audit` for details.
+
+> mission-control@1.2.0 build
+> next build
+
+  ▲ Next.js 14.2.21
+  - Environments: .env.local
+
+   Creating an optimized production build ...
+ ✓ Compiled successfully
+   Linting and checking validity of types ...
+   Collecting page data ...
+   Generating static pages (0/20) ...
+   Generating static pages (5/20) 
+Error downloading file: B [Error]: Dynamic server usage: Route /api/files/download couldn't be rendered statically because it used `nextUrl.searchParams`. See more info here: https://nextjs.org/docs/messages/dynamic-server-error
+    at V (/root/mission-control/node_modules/next/dist/compiled/next-server/app-route.runtime.prod.js:6:21778)
+    at Object.get (/root/mission-control/node_modules/next/dist/compiled/next-server/app-route.runtime.prod.js:6:29137)
+    at m (/root/mission-control/.next/server/app/api/files/download/route.js:1:1043)
+    at /root/mission-control/node_modules/next/dist/compiled/next-server/app-route.runtime.prod.js:6:38417
+    at /root/mission-control/node_modules/next/dist/server/lib/trace/tracer.js:140:36
+    at NoopContextManager.with (/root/mission-control/node_modules/next/dist/compiled/@opentelemetry/api/index.js:1:7062)
+    at ContextAPI.with (/root/mission-control/node_modules/next/dist/compiled/@opentelemetry/api/index.js:1:518)
+    at NoopTracer.startActiveSpan (/root/mission-control/node_modules/next/dist/compiled/@opentelemetry/api/index.js:1:18093)
+    at ProxyTracer.startActiveSpan (/root/mission-control/node_modules/next/dist/compiled/@opentelemetry/api/index.js:1:18854)
+    at /root/mission-control/node_modules/next/dist/server/lib/trace/tracer.js:122:103 {
+  description: "Route /api/files/download couldn't be rendered statically because it used `nextUrl.searchParams`. See more info here: https://nextjs.org/docs/messages/dynamic-server-error",
+  digest: 'DYNAMIC_SERVER_USAGE'
+}
+   Generating static pages (10/20) 
+Failed to check orchestra status: B [Error]: Dynamic server usage: Route /api/openclaw/orchestra couldn't be rendered statically because it used `request.url`. See more info here: https://nextjs.org/docs/messages/dynamic-server-error
+    at V (/root/mission-control/node_modules/next/dist/compiled/next-server/app-route.runtime.prod.js:6:21778)
+    at Object.get (/root/mission-control/node_modules/next/dist/compiled/next-server/app-route.runtime.prod.js:6:29465)
+    at d (/root/mission-control/.next/server/app/api/openclaw/orchestra/route.js:1:660)
+    at /root/mission-control/node_modules/next/dist/compiled/next-server/app-route.runtime.prod.js:6:38417
+    at /root/mission-control/node_modules/next/dist/server/lib/trace/tracer.js:140:36
+    at NoopContextManager.with (/root/mission-control/node_modules/next/dist/compiled/@opentelemetry/api/index.js:1:7062)
+    at ContextAPI.with (/root/mission-control/node_modules/next/dist/compiled/@opentelemetry/api/index.js:1:518)
+    at NoopTracer.startActiveSpan (/root/mission-control/node_modules/next/dist/compiled/@opentelemetry/api/index.js:1:18093)
+    at ProxyTracer.startActiveSpan (/root/mission-control/node_modules/next/dist/compiled/@opentelemetry/api/index.js:1:18854)
+    at /root/mission-control/node_modules/next/dist/server/lib/trace/tracer.js:122:103 {
+  description: "Route /api/openclaw/orchestra couldn't be rendered statically because it used `request.url`. See more info here: https://nextjs.org/docs/messages/dynamic-server-error",
+  digest: 'DYNAMIC_SERVER_USAGE'
+}
+[OpenClaw] Device identity loaded: 3f1aa658bae4f9f0d3f32b144e7bfc9e5db218f5a43fa25df57b24f1a75d3643
+[OpenClaw] Started periodic cache cleanup (interval: 300000 ms)
+[OpenClaw] Connecting to: ws://127.0.0.1:18789/?token=***
+[OpenClaw] Token in URL: true
+[OpenClaw] WebSocket opened, waiting for challenge...
+[OpenClaw] Received: 6f5bc7d07935bada
+[OpenClaw] Challenge received, responding...
+[OpenClaw] Device identity prepared: {
+  deviceId: '3f1aa658bae4f9f0d3f32b144e7bfc9e5db218f5a43fa25df57b24f1a75d3643',
+  hasSignature: true,
+  nonce: '1adef418-5e0f-45da-a1e0-3c73a596c8dd'
+}
+[OpenClaw] Sending challenge response
+[OpenClaw] Received: res:4bc90f03
+[OpenClaw] Authenticated successfully
+[OpenClaw] Received: res:2f4b49cd
+   Generating static pages (15/20) 
+ ✓ Generating static pages (20/20)
+   Finalizing page optimization ...
+   Collecting build traces ...
