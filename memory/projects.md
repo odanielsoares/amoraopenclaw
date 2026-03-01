@@ -33,4 +33,5 @@
   - 11:10 — EN (publica + reporta no Mission Control)
   - 14:10 — PT-BR (publica + reporta no Mission Control)
   - 17:10 — EN (publica + reporta no Mission Control)
+  - 23:55 — fecha Task diária no Mission Control (status=done + resumo)
 - **Fonte/config:** `automation/3dprint-pricing-bot/sources.ptbr.json` + `PROMPT_ARTICLE.md`
