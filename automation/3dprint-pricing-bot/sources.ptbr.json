@@ -1,0 +1,24 @@
+{
+  "description": "Fontes fixas (PT-BR + globais) para conteúdo sobre precificação/custos em impressão 3D.",
+  "rss": [
+    {"name": "All3DP", "url": "https://all3dp.com/feed/"},
+    {"name": "Prusa Blog", "url": "https://blog.prusa3d.com/feed/"},
+    {"name": "MatterHackers", "url": "https://www.matterhackers.com/rss"},
+    {"name": "CNC Kitchen", "url": "https://www.cnckitchen.com/blog-feed.xml"},
+    {"name": "3DPrintBeginner", "url": "https://3dprintbeginner.com/feed/"}
+  ],
+  "manual_sources": [
+    {"name": "Bambu Lab Wiki", "url": "https://wiki.bambulab.com/"},
+    {"name": "Ultimaker Support", "url": "https://support.ultimaker.com/"},
+    {"name": "Cura Docs", "url": "https://github.com/Ultimaker/Cura"},
+    {"name": "Shopee Central do Vendedor", "url": "https://seller.shopee.com.br/"},
+    {"name": "Mercado Livre Central", "url": "https://www.mercadolivre.com.br/ajuda"}
+  ],
+  "search_queries": [
+    "precificação impressão 3D como calcular",
+    "custo filamento por grama cálculo",
+    "como calcular margem de lucro impressão 3D",
+    "pricing 3d printing service cost calculator",
+    "how to price 3d prints etsy shopee mercadolivre"
+  ]
+}

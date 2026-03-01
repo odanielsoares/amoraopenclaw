@@ -1,0 +1,16 @@
+{
+  "name": "BlogBot (3D Pricing) - Manhã",
+  "schedule": {
+    "kind": "cron",
+    "expr": "10 8 * * *",
+    "tz": "America/Sao_Paulo"
+  },
+  "sessionTarget": "isolated",
+  "payload": {
+    "kind": "agentTurn",
+    "message": "Rodar o BlogBot de precificação 3D (PT-BR prioritário).\n\nInstruções:\n1) Usar a lista fixa em automation/3dprint-pricing-bot/sources.ptbr.json (RSS + manual_sources).\n2) Selecione 1 tema novo e relevante (evite repetir assunto dos últimos 7 dias).\n3) Coletar 5–10 links de apoio (pode complementar com busca aberta).\n4) Gerar artigo ORIGINAL em PT-BR seguindo automation/3dprint-pricing-bot/PROMPT_ARTICLE.md, com seção de fontes.\n5) Gerar cover_image_url (se ainda não houver pipeline de upload, usar uma imagem placeholder já hospedada no produto; se não existir, publicar mesmo assim com um placeholder estável).\n6) Publicar via Edge Function create-blog-post com published=true:\n   - URL: https://zfwwaeualfmsjobflnpj.supabase.co/functions/v1/create-blog-post\n   - Header: x-api-key: $BLOG_API_KEY (carregar de local seguro; não logar a chave)\n\nSegurança/qualidade:\n- Não copiar texto das fontes.\n- Sempre citar/linkar fontes.\n- Se não tiver fontes boas suficientes, abortar a publicação (não postar)."
+  },
+  "delivery": {
+    "mode": "announce"
+  }
+}

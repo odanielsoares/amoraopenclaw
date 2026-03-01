@@ -1,0 +1,16 @@
+{
+  "name": "BlogBot (3D Pricing) - Tarde/Noite",
+  "schedule": {
+    "kind": "cron",
+    "expr": "10 17 * * *",
+    "tz": "America/Sao_Paulo"
+  },
+  "sessionTarget": "isolated",
+  "payload": {
+    "kind": "agentTurn",
+    "message": "Rodar o BlogBot de precificação 3D (post 2 do dia).\n\nPreferência hoje:\n- Se houver artigo PT-BR publicado mais cedo, gerar versão EN (adaptação/tradução com exemplos e termos locais) e publicar como um novo post.\n- Se não houver, gerar PT-BR novamente.\n\nRegras:\n- Original, sem copiar fontes; incluir fontes; SEO; CTA.\n- Publicar via Edge Function create-blog-post (published=true):\n   - URL: https://zfwwaeualfmsjobflnpj.supabase.co/functions/v1/create-blog-post\n   - Header: x-api-key: $BLOG_API_KEY (carregar de local seguro; não logar a chave)"
+  },
+  "delivery": {
+    "mode": "announce"
+  }
+}

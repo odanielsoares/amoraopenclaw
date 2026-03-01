@@ -3,6 +3,14 @@ secure/
 .openclaw/
 .clawhub/
 
+# Secrets
+.env
+.env.*
+automation/**/secrets*
+
+# Dependencies
+node_modules/
+
 # Local skill checkouts (generated)
 skills/
 
