@@ -6,7 +6,8 @@
 - **Deploy:** PM2 (Next.js em :4000) + Nginx reverse proxy + SSL
 - **Gateway:** ws://127.0.0.1:18789
 - **Cron de atualização/reconciliação (para manter MC “vivo”):**
-  - Job: `Mission Control - Reconcile (fast)` (id `dcdd1e60-8164-48ae-9d73-f678ec1f34ee`)
+  - Job: `Mission Control - Reconcile (fast)` (id `dcdd1e60-8164-48ae-9d73-f678ec1f34ee`) — **ativo**
+  - Job antigo `Mission Control - Reconcile` (id `d8bc0449-7a05-4692-8ceb-bc46b4b459d0`) — **desativado** (substituído pelo fast)
   - Schedule: `*/5 * * * *` @ America/Sao_Paulo
   - Payload: `node /root/.openclaw/workspace/scripts/reconcile_mission_control.mjs`
 
