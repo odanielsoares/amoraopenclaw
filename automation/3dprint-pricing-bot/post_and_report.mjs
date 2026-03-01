@@ -87,8 +87,8 @@ async function addDeliverable(taskId, { title, url }) {
 
 async function setClaudioStatus(status) {
   const { baseUrl, token, workspaceId } = getMcConfig();
-  // This is the existing Claudio agent in Mission Control
-  const CLAUDIO_AGENT_ID = process.env.MC_CLAUDIO_AGENT_ID || '37f8c318-590d-4d8e-8b11-5b12b2f76dcd';
+  // This is the Claudio (BlogBot) agent imported from Gateway in Mission Control
+  const CLAUDIO_AGENT_ID = process.env.MC_CLAUDIO_AGENT_ID || '164a6c3c-c81a-40c5-963a-4a03dc95c828';
   try {
     await apiFetch(baseUrl, token, `/api/agents/${CLAUDIO_AGENT_ID}`, {
       method: 'PATCH',
