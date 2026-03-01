@@ -22,8 +22,9 @@
   - Auth: header `x-api-key` com `BLOG_API_KEY`
 - **Runner:** `/root/.openclaw/workspace/automation/3dprint-pricing-bot/run.mjs` (RSS → LLM → POST)
 - **Crons (todos os dias, America/Sao_Paulo):**
-  - 08:10 — PT-BR
-  - 11:10 — EN
-  - 14:10 — PT-BR
-  - 17:10 — EN
+  - 07:55 — cria/garante Task diária no Mission Control ("BlogBot — 3D Pricing — YYYY-MM-DD")
+  - 08:10 — PT-BR (publica + reporta no Mission Control)
+  - 11:10 — EN (publica + reporta no Mission Control)
+  - 14:10 — PT-BR (publica + reporta no Mission Control)
+  - 17:10 — EN (publica + reporta no Mission Control)
 - **Fonte/config:** `automation/3dprint-pricing-bot/sources.ptbr.json` + `PROMPT_ARTICLE.md`
