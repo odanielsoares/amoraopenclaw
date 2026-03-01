@@ -85,10 +85,26 @@ async function addDeliverable(taskId, { title, url }) {
   });
 }
 
+async function setClaudioStatus(status) {
+  const { baseUrl, token, workspaceId } = getMcConfig();
+  // This is the existing Claudio agent in Mission Control
+  const CLAUDIO_AGENT_ID = process.env.MC_CLAUDIO_AGENT_ID || '37f8c318-590d-4d8e-8b11-5b12b2f76dcd';
+  try {
+    await apiFetch(baseUrl, token, `/api/agents/${CLAUDIO_AGENT_ID}`, {
+      method: 'PATCH',
+      body: JSON.stringify({ status, workspace_id: workspaceId })
+    });
+  } catch {
+    // don't fail publishing if MC status update fails
+  }
+}
+
 async function main() {
   const task = await ensureDailyTask();
 
   const runnerPath = path.resolve(process.cwd(), 'automation/3dprint-pricing-bot/run.mjs');
+
+  await setClaudioStatus('working');
 
   await logActivity(task.id, {
     activity_type: 'spawned',
@@ -104,6 +120,7 @@ async function main() {
       message: `FALHA (${lang.toUpperCase()}): exit=${res.code}. stderr: ${res.err.slice(0, 600)}`,
       metadata: { kind: 'blogbot_run_failed', lang, date, exitCode: res.code }
     });
+    await setClaudioStatus('standby');
     console.error(res.err || res.out);
     process.exit(res.code || 1);
   }
@@ -124,6 +141,8 @@ async function main() {
     message: `Publicado (${lang.toUpperCase()}): ${postTitle}${slug ? ` — slug: ${slug}` : ''}`,
     metadata: { kind: 'blogbot_run_ok', lang, date, slug, postId: parsed?.published?.post?.id }
   });
+
+  await setClaudioStatus('standby');
 
   // If you have a public blog base URL, set BLOG_PUBLIC_BASE_URL to create clickable links.
   const publicBase = process.env.BLOG_PUBLIC_BASE_URL;
