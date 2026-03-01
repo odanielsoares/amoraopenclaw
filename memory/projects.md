@@ -16,6 +16,7 @@
 - **Uso:** armazenar versão/infra de deploy funcional (docs/configs) para reproduzir setup.
 
 ## BlogBot — Conteúdo recorrente (Precificação Impressão 3D)
+- **Mission Control Agent:** `Claudio (BlogBot 3D Pricing)` (workspace `default`) — status `working` para visibilidade no painel.
 - **Objetivo:** gerar e publicar conteúdo recorrente para o SaaS de precificação (PT-BR + EN), com SEO.
 - **Publicação:** Supabase Edge Function `create-blog-post`
   - Base URL: https://zfwwaeualfmsjobflnpj.supabase.co/functions/v1/create-blog-post
