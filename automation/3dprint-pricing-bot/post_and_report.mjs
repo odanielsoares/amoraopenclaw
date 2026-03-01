@@ -16,6 +16,7 @@ function arg(name, def) {
 }
 
 const lang = String(arg('lang', 'pt')).toLowerCase();
+const focus = String(arg('focus', '')).trim();
 const date = todayISODate();
 
 function runNodeScript(scriptPath, args = []) {
@@ -112,7 +113,9 @@ async function main() {
     metadata: { kind: 'blogbot_run_start', lang, date }
   });
 
-  const res = await runNodeScript(runnerPath, ['--lang', lang]);
+  const args = ['--lang', lang];
+  if (focus) args.push('--focus', focus);
+  const res = await runNodeScript(runnerPath, args);
 
   if (res.code !== 0) {
     await logActivity(task.id, {

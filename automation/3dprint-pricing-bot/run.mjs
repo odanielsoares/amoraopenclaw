@@ -27,6 +27,7 @@ function arg(name, def = undefined) {
 
 const lang = String(arg("lang", "pt")).toLowerCase(); // pt | en
 const dryRun = Boolean(arg("dry", false));
+const focus = String(arg("focus", "")).trim();
 const endpoint = process.env.BLOG_ENDPOINT || "https://zfwwaeualfmsjobflnpj.supabase.co/functions/v1/create-blog-post";
 const blogApiKey = process.env.BLOG_API_KEY;
 const openaiKey = process.env.OPENAI_API_KEY;
@@ -179,12 +180,15 @@ async function openaiGeneratePost({ lang, seedItem, supportLinks }) {
     "You are an expert content writer for a SaaS that helps price 3D printing jobs. " +
     "You must write ORIGINAL content (no copying). Always include sources as links.";
 
+  const focusBlock = focus ? `\nSpecial focus for this article (must respect):\n- ${focus}\n` : "";
+
   const user = `
 ${languageInstruction}
 
 Context:
 - Audience: makers, small sellers, 3D printing service providers (Brazil-first)
 - Goal: practical, actionable guidance + subtle CTA for the Custo3D calculator
+${focusBlock}
 
 Editorial/SEO playbook:
 ${promptSeoEngine}
