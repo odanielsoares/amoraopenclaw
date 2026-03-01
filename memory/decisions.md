@@ -10,6 +10,7 @@
 - Manter tokens/secretos em .env.local (gitignored); nunca commitar chaves em repositórios.
 - **BlogBot (Precificação 3D) deve rodar diariamente via cron** (PT-BR + EN, 4 posts/dia). Runner via script Node (sem browser) para estabilidade; publicação via Supabase Edge Function `create-blog-post`. Cada run deve registrar status no Mission Control (Task diária + activities) para visibilidade.
 - **Mission Control deve ter reconciliação frequente via cron** para manter atualização (evitar ficar “parado”): job `Mission Control - Reconcile (fast)` a cada 5 minutos.
+- Para visibilidade real no MC, agentes de produção devem ser **gateway-connected** (importados do OpenClaw Gateway), evitando agentes locais “mockados”/duplicados.
 - **Workflow padrão:** toda tarefa solicitada pelo Dan neste chat deve ser **replicada como Task no Mission Control** (workspace default), com acompanhamento em tempo real no Kanban/Live Feed (status + comentários + entregáveis). Responder no chat com resumo + ID/link da task.
 - **Guardar links importantes:** sempre que o Dan enviar um link (repo, doc, ferramenta), registrar na memória permanente para reutilização.
 

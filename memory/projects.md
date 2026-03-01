@@ -16,12 +16,17 @@
 - **Uso:** armazenar versão/infra de deploy funcional (docs/configs) para reproduzir setup.
 
 ## BlogBot — Conteúdo recorrente (Precificação Impressão 3D)
-- **Mission Control Agent:** `Claudio (BlogBot 3D Pricing)` (workspace `default`) — status `working` para visibilidade no painel.
+- **Mission Control Agent (real / gateway-connected):** `Claudio (BlogBot)` (gateway_agent_id=`claudio`, workspace `default`) — status alterna `working` durante publicação e `standby` ao finalizar.
 - **Objetivo:** gerar e publicar conteúdo recorrente para o SaaS de precificação (PT-BR + EN), com SEO.
 - **Publicação:** Supabase Edge Function `create-blog-post`
   - Base URL: https://zfwwaeualfmsjobflnpj.supabase.co/functions/v1/create-blog-post
   - Auth: header `x-api-key` com `BLOG_API_KEY`
 - **Runner:** `/root/.openclaw/workspace/automation/3dprint-pricing-bot/run.mjs` (RSS → LLM → POST)
+- **Wrapper (publica + reporta no MC + status do agente):** `automation/3dprint-pricing-bot/post_and_report.mjs`
+- **Batch PT-BR:** `automation/3dprint-pricing-bot/batch_publish_ptbr.mjs`
+- **SEO/Editor prompt:** `automation/3dprint-pricing-bot/PROMPT_SEO_ENGINE.md`
+- **Refs repertório:** `automation/3dprint-pricing-bot/repertoire.refs.md`
+- **Memória editorial:** `automation/3dprint-pricing-bot/blog_memory.md`
 - **Crons (todos os dias, America/Sao_Paulo):**
   - 07:55 — cria/garante Task diária no Mission Control ("BlogBot — 3D Pricing — YYYY-MM-DD")
   - 08:10 — PT-BR (publica + reporta no Mission Control)
