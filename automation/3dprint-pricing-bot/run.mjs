@@ -50,6 +50,10 @@ if (!fs.existsSync(PROMPT_PATH)) {
 
 const sourcesCfg = JSON.parse(fs.readFileSync(SOURCES_PATH, "utf8"));
 const promptBase = fs.readFileSync(PROMPT_PATH, "utf8");
+const promptSeoEnginePath = path.join(BOT_DIR, "PROMPT_SEO_ENGINE.md");
+const promptSeoEngine = fs.existsSync(promptSeoEnginePath) ? fs.readFileSync(promptSeoEnginePath, "utf8") : "";
+const refsPath = path.join(BOT_DIR, "repertoire.refs.md");
+const refsText = fs.existsSync(refsPath) ? fs.readFileSync(refsPath, "utf8") : "";
 
 function loadState() {
   try {
@@ -179,10 +183,17 @@ async function openaiGeneratePost({ lang, seedItem, supportLinks }) {
 ${languageInstruction}
 
 Context:
-- Audience: makers, small sellers, 3D printing service providers
-- Goal: practical, actionable pricing/cost/margin guidance + subtle CTA for the SaaS calculator
+- Audience: makers, small sellers, 3D printing service providers (Brazil-first)
+- Goal: practical, actionable guidance + subtle CTA for the Custo3D calculator
 
+Editorial/SEO playbook:
+${promptSeoEngine}
+
+Base structure rules:
 ${promptBase}
+
+Reference sites (topic inspiration / cite as sources when relevant — do not copy):
+${refsText}
 
 Sources you may cite (choose the best ones and always link them):
 ${linksBlock || "- (none)"}
