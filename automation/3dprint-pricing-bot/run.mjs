@@ -282,14 +282,41 @@ async function publishPost(post) {
     published: true,
   };
 
-  const r = await axios.post(endpoint, payload, {
-    headers: {
-      "x-api-key": blogApiKey,
-      "Content-Type": "application/json",
-    },
-    timeout: 30000,
-  });
-  return r.data;
+  try {
+    const r = await axios.post(endpoint, payload, {
+      headers: {
+        "x-api-key": blogApiKey,
+        "Content-Type": "application/json",
+      },
+      timeout: 30000,
+      validateStatus: () => true,
+    });
+
+    // Some edge functions return 200 w/ {error:...}; others return 4xx.
+    if (r.status >= 200 && r.status < 300 && !(r.data && r.data.error)) {
+      return r.data;
+    }
+
+    const msg = (typeof r.data === "string" ? r.data : JSON.stringify(r.data || {})) || "";
+    const isDup =
+      r.status === 409 ||
+      /blog_posts_slug_key/i.test(msg) ||
+      /duplicate key value/i.test(msg) ||
+      /unique constraint/i.test(msg);
+
+    if (isDup) {
+      const err = new Error(`DUPLICATE_SLUG: ${msg}`);
+      err.code = "DUPLICATE_SLUG";
+      throw err;
+    }
+
+    const err = new Error(`Publish failed HTTP ${r.status}: ${msg}`);
+    err.status = r.status;
+    throw err;
+  } catch (e) {
+    // Re-throw for caller
+    throw e;
+  }
 }
 
 async function main() {
@@ -335,6 +362,12 @@ async function main() {
 }
 
 main().catch((err) => {
-  console.error(err?.response?.data || err);
+  const msg = err?.response?.data || err?.message || err;
+  console.error(msg);
+
+  if (err?.code === "DUPLICATE_SLUG" || (typeof msg === "string" && msg.startsWith("DUPLICATE_SLUG"))) {
+    process.exit(3);
+  }
+
   process.exit(1);
 });
