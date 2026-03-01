@@ -9,6 +9,7 @@
 - Política de publicação para Claudio (L3): máximo 3 posts/dia; horário 09:00–21:00 BRT; tópicos proibidos: política, religião, saúde; critério de publicação automático: score ≥ 8; links + afirmação factual forte → aprovação humana.
 - Manter tokens/secretos em .env.local (gitignored); nunca commitar chaves em repositórios.
 - **BlogBot (Precificação 3D) deve rodar diariamente via cron** (PT-BR + EN, 4 posts/dia). Runner via script Node (sem browser) para estabilidade; publicação via Supabase Edge Function `create-blog-post`.
+- **Mission Control deve ter reconciliação frequente via cron** para manter atualização (evitar ficar “parado”): job `Mission Control - Reconcile (fast)` a cada 5 minutos.
 - **Workflow padrão:** toda tarefa solicitada pelo Dan neste chat deve ser **replicada como Task no Mission Control** (workspace default), com acompanhamento em tempo real no Kanban/Live Feed (status + comentários + entregáveis). Responder no chat com resumo + ID/link da task.
 - **Guardar links importantes:** sempre que o Dan enviar um link (repo, doc, ferramenta), registrar na memória permanente para reutilização.
 

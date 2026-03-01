@@ -5,6 +5,10 @@
 - **Repo upstream:** https://github.com/crshdn/mission-control
 - **Deploy:** PM2 (Next.js em :4000) + Nginx reverse proxy + SSL
 - **Gateway:** ws://127.0.0.1:18789
+- **Cron de atualização/reconciliação (para manter MC “vivo”):**
+  - Job: `Mission Control - Reconcile (fast)` (id `dcdd1e60-8164-48ae-9d73-f678ec1f34ee`)
+  - Schedule: `*/5 * * * *` @ America/Sao_Paulo
+  - Payload: `node /root/.openclaw/workspace/scripts/reconcile_mission_control.mjs`
 
 ## Repo do Dan (Infra/OpenClaw)
 - **Repo:** https://github.com/odanielsoares/amoraopenclaw.git
