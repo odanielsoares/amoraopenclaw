@@ -207,3 +207,160 @@ From https://github.com/odanielsoares/amoraopenclaw
  * [new branch]      deploy-auto/20260302T072017Z -> dan/deploy-auto/20260302T072017Z
 Already up to date.
 -- npm install/build --
+npm warn deprecated inflight@1.0.6: This module is not supported, and leaks memory. Do not use it. Check out lru-cache if you want a good and tested way to coalesce async requests by a key value, which is much more comprehensive and powerful.
+npm warn deprecated @humanwhocodes/config-array@0.13.0: Use @eslint/config-array instead
+npm warn deprecated rimraf@3.0.2: Rimraf versions prior to v4 are no longer supported
+npm warn deprecated @humanwhocodes/object-schema@2.0.3: Use @eslint/object-schema instead
+npm warn deprecated glob@7.2.3: Glob versions prior to v9 are no longer supported
+npm warn deprecated eslint@8.57.1: This version is no longer supported. Please see https://eslint.org/version-support for other options.
+npm warn deprecated next@14.2.21: This version has a security vulnerability. Please upgrade to a patched version. See https://nextjs.org/blog/security-update-2025-12-11 for more details.
+
+added 445 packages, and audited 446 packages in 1m
+
+163 packages are looking for funding
+  run `npm fund` for details
+
+6 vulnerabilities (1 moderate, 4 high, 1 critical)
+
+To address issues that do not require attention, run:
+  npm audit fix
+
+To address all issues (including breaking changes), run:
+  npm audit fix --force
+
+Run `npm audit` for details.
+npm notice
+npm notice New major version of npm available! 10.9.4 -> 11.11.0
+npm notice Changelog: https://github.com/npm/cli/releases/tag/v11.11.0
+npm notice To update run: npm install -g npm@11.11.0
+npm notice
+
+> mission-control@1.2.0 build
+> next build
+
+  ▲ Next.js 14.2.21
+  - Environments: .env.local
+
+   Creating an optimized production build ...
+ ✓ Compiled successfully
+   Linting and checking validity of types ...
+   Collecting page data ...
+   Generating static pages (0/20) ...
+   Generating static pages (5/20) 
+Error downloading file: B [Error]: Dynamic server usage: Route /api/files/download couldn't be rendered statically because it used `nextUrl.searchParams`. See more info here: https://nextjs.org/docs/messages/dynamic-server-error
+    at V (/root/mission-control/node_modules/next/dist/compiled/next-server/app-route.runtime.prod.js:6:21778)
+    at Object.get (/root/mission-control/node_modules/next/dist/compiled/next-server/app-route.runtime.prod.js:6:29137)
+    at m (/root/mission-control/.next/server/app/api/files/download/route.js:1:1043)
+    at /root/mission-control/node_modules/next/dist/compiled/next-server/app-route.runtime.prod.js:6:38417
+    at /root/mission-control/node_modules/next/dist/server/lib/trace/tracer.js:140:36
+    at NoopContextManager.with (/root/mission-control/node_modules/next/dist/compiled/@opentelemetry/api/index.js:1:7062)
+    at ContextAPI.with (/root/mission-control/node_modules/next/dist/compiled/@opentelemetry/api/index.js:1:518)
+    at NoopTracer.startActiveSpan (/root/mission-control/node_modules/next/dist/compiled/@opentelemetry/api/index.js:1:18093)
+    at ProxyTracer.startActiveSpan (/root/mission-control/node_modules/next/dist/compiled/@opentelemetry/api/index.js:1:18854)
+    at /root/mission-control/node_modules/next/dist/server/lib/trace/tracer.js:122:103 {
+  description: "Route /api/files/download couldn't be rendered statically because it used `nextUrl.searchParams`. See more info here: https://nextjs.org/docs/messages/dynamic-server-error",
+  digest: 'DYNAMIC_SERVER_USAGE'
+}
+   Generating static pages (10/20) 
+Failed to check orchestra status: B [Error]: Dynamic server usage: Route /api/openclaw/orchestra couldn't be rendered statically because it used `request.url`. See more info here: https://nextjs.org/docs/messages/dynamic-server-error
+    at V (/root/mission-control/node_modules/next/dist/compiled/next-server/app-route.runtime.prod.js:6:21778)
+    at Object.get (/root/mission-control/node_modules/next/dist/compiled/next-server/app-route.runtime.prod.js:6:29465)
+    at d (/root/mission-control/.next/server/app/api/openclaw/orchestra/route.js:1:660)
+    at /root/mission-control/node_modules/next/dist/compiled/next-server/app-route.runtime.prod.js:6:38417
+    at /root/mission-control/node_modules/next/dist/server/lib/trace/tracer.js:140:36
+    at NoopContextManager.with (/root/mission-control/node_modules/next/dist/compiled/@opentelemetry/api/index.js:1:7062)
+    at ContextAPI.with (/root/mission-control/node_modules/next/dist/compiled/@opentelemetry/api/index.js:1:518)
+    at NoopTracer.startActiveSpan (/root/mission-control/node_modules/next/dist/compiled/@opentelemetry/api/index.js:1:18093)
+    at ProxyTracer.startActiveSpan (/root/mission-control/node_modules/next/dist/compiled/@opentelemetry/api/index.js:1:18854)
+    at /root/mission-control/node_modules/next/dist/server/lib/trace/tracer.js:122:103 {
+  description: "Route /api/openclaw/orchestra couldn't be rendered statically because it used `request.url`. See more info here: https://nextjs.org/docs/messages/dynamic-server-error",
+  digest: 'DYNAMIC_SERVER_USAGE'
+}
+[OpenClaw] Device identity loaded: 3f1aa658bae4f9f0d3f32b144e7bfc9e5db218f5a43fa25df57b24f1a75d3643
+[OpenClaw] Started periodic cache cleanup (interval: 300000 ms)
+[OpenClaw] Connecting to: ws://127.0.0.1:18789/?token=***
+[OpenClaw] Token in URL: true
+[OpenClaw] WebSocket opened, waiting for challenge...
+[OpenClaw] Received: f40d3b8765acd818
+[OpenClaw] Challenge received, responding...
+[OpenClaw] Device identity prepared: {
+  deviceId: '3f1aa658bae4f9f0d3f32b144e7bfc9e5db218f5a43fa25df57b24f1a75d3643',
+  hasSignature: true,
+  nonce: '7644e760-eba9-483e-89d1-f162904d0939'
+}
+[OpenClaw] Sending challenge response
+[OpenClaw] Received: res:258d7704
+[OpenClaw] Authenticated successfully
+[OpenClaw] Received: res:d252eeea
+   Generating static pages (15/20) 
+ ✓ Generating static pages (20/20)
+   Finalizing page optimization ...
+   Collecting build traces ...
+
+Route (app)                                  Size     First Load JS
+┌ ○ /                                        2.9 kB         97.6 kB
+├ ○ /_not-found                              873 B          88.1 kB
+├ ƒ /api/agents                              0 B                0 B
+├ ƒ /api/agents/[id]                         0 B                0 B
+├ ƒ /api/agents/[id]/openclaw                0 B                0 B
+├ ƒ /api/agents/discover                     0 B                0 B
+├ ƒ /api/agents/import                       0 B                0 B
+├ ○ /api/demo                                0 B                0 B
+├ ƒ /api/events                              0 B                0 B
+├ ƒ /api/events/stream                       0 B                0 B
+├ ƒ /api/files/download                      0 B                0 B
+├ ƒ /api/files/preview                       0 B                0 B
+├ ƒ /api/files/reveal                        0 B                0 B
+├ ƒ /api/files/upload                        0 B                0 B
+├ ○ /api/openclaw/models                     0 B                0 B
+├ ƒ /api/openclaw/orchestra                  0 B                0 B
+├ ƒ /api/openclaw/sessions                   0 B                0 B
+├ ƒ /api/openclaw/sessions/[id]              0 B                0 B
+├ ƒ /api/openclaw/sessions/[id]/history      0 B                0 B
+├ ○ /api/openclaw/status                     0 B                0 B
+├ ƒ /api/tasks                               0 B                0 B
+├ ƒ /api/tasks/[id]                          0 B                0 B
+├ ƒ /api/tasks/[id]/activities               0 B                0 B
+├ ƒ /api/tasks/[id]/deliverables             0 B                0 B
+├ ƒ /api/tasks/[id]/dispatch                 0 B                0 B
+├ ƒ /api/tasks/[id]/planning                 0 B                0 B
+├ ƒ /api/tasks/[id]/planning/answer          0 B                0 B
+├ ƒ /api/tasks/[id]/planning/approve         0 B                0 B
+├ ƒ /api/tasks/[id]/planning/poll            0 B                0 B
+├ ƒ /api/tasks/[id]/planning/retry-dispatch  0 B                0 B
+├ ƒ /api/tasks/[id]/subagent                 0 B                0 B
+├ ƒ /api/tasks/[id]/test                     0 B                0 B
+├ ƒ /api/webhooks/agent-completion           0 B                0 B
+├ ƒ /api/workspaces                          0 B                0 B
+├ ƒ /api/workspaces/[id]                     0 B                0 B
+├ ○ /settings                                4.19 kB        91.4 kB
+└ ƒ /workspace/[slug]                        26.3 kB         121 kB
++ First Load JS shared by all                87.2 kB
+  ├ chunks/117-591b9898a6fa0b89.js           31.6 kB
+  ├ chunks/fd9d1056-9583fa19bc194043.js      53.6 kB
+  └ other shared chunks (total)              1.95 kB
+
+
+ƒ Middleware                                 26.9 kB
+
+○  (Static)   prerendered as static content
+ƒ  (Dynamic)  server-rendered on demand
+
+-- pm2 restart --
+Use --update-env to update environment variables
+[PM2] Applying action restartProcessId on app [mission-control](ids: [ 0 ])
+[PM2] [mission-control](0) ✓
+┌────┬────────────────────┬─────────────┬─────────┬─────────┬──────────┬────────┬──────┬───────────┬──────────┬──────────┬──────────┬──────────┐
+│ id │ name               │ namespace   │ version │ mode    │ pid      │ uptime │ ↺    │ status    │ cpu      │ mem      │ user     │ watching │
+├────┼────────────────────┼─────────────┼─────────┼─────────┼──────────┼────────┼──────┼───────────┼──────────┼──────────┼──────────┼──────────┤
+│ 0  │ mission-control    │ default     │ N/A     │ fork    │ 332674   │ 0s     │ 2    │ online    │ 0%       │ 3.8mb    │ root     │ disabled │
+└────┴────────────────────┴─────────────┴─────────┴─────────┴──────────┴────────┴──────┴───────────┴──────────┴──────────┴──────────┴──────────┘
+[PM2] Saving current process list...
+[PM2] Successfully saved in /root/.pm2/dump.pm2
+-- nginx reload (best-effort) --
+nginx: the configuration file /etc/nginx/nginx.conf syntax is ok
+nginx: configuration file /etc/nginx/nginx.conf test is successful
+-- healthcheck --
+curl: (22) The requested URL returned error: 502
+HTTP 502
+[20260302T073003Z] Mission Control update done
