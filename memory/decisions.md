@@ -13,5 +13,6 @@
 - Para visibilidade real no MC, agentes de produção devem ser **gateway-connected** (importados do OpenClaw Gateway), evitando agentes locais “mockados”/duplicados.
 - **Workflow padrão:** toda tarefa solicitada pelo Dan neste chat deve ser **replicada como Task no Mission Control** (workspace default), com acompanhamento em tempo real no Kanban/Live Feed (status + comentários + entregáveis). Responder no chat com resumo + ID/link da task.
 - **Guardar links importantes:** sempre que o Dan enviar um link (repo, doc, ferramenta), registrar na memória permanente para reutilização.
+- Preferência de armazenamento de chaves: chaves sensíveis devem ser mantidas em .env.local com permissões restritas (600). Amora gravou OPENAI_API_KEY e BLOG_API_KEY em /root/mission-control/.env.local para evitar solicitar repetidamente ao Dan.
 
 Dono das decisões: Dan (estratégico) / Amora (execução).
