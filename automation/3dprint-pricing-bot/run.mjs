@@ -160,6 +160,8 @@ function pickTheme(items, state) {
   return { item: it, topicHash: key };
 }
 
+const blogModel = process.env.BLOG_MODEL || "gpt-5-mini";
+
 async function openaiGeneratePost({ lang, seedItem, supportLinks }) {
   const languageInstruction =
     lang === "en"
@@ -216,7 +218,7 @@ Where:
   const resp = await axios.post(
     "https://api.openai.com/v1/responses",
     {
-      model: "gpt-5.2",
+      model: blogModel,
       input: [
         { role: "system", content: [{ type: "input_text", text: system }] },
         { role: "user", content: [{ type: "input_text", text: user }] },
@@ -242,7 +244,7 @@ Where:
           strict: true,
         },
       },
-      temperature: 0.7,
+      // temperature omitted for compatibility across models
     },
     {
       headers: {

@@ -1,10 +1,12 @@
 #!/usr/bin/env node
 /**
  * Wrapper: publish a blog post (run.mjs) then report result into Mission Control.
+ * Extended: weekly rotation by cluster + published_history to avoid repeats.
  */
 
 import { spawn } from 'node:child_process';
 import path from 'node:path';
+import fs from 'node:fs';
 import { apiFetch, getMcConfig, todayISODate } from '../../scripts/mc_blogbot_helpers.mjs';
 
 function arg(name, def) {
@@ -16,7 +18,9 @@ function arg(name, def) {
 }
 
 const lang = String(arg('lang', 'pt')).toLowerCase();
-const focus = String(arg('focus', '')).trim();
+let focus = String(arg('focus', '')).trim();
+const rotateWeekly = Boolean(arg('rotate-weekly', false));
+const noRepeatWeeks = Number(arg('no-repeat-weeks', 8)) || 8;
 const date = todayISODate();
 
 function runNodeScript(scriptPath, args = []) {
@@ -88,7 +92,6 @@ async function addDeliverable(taskId, { title, url }) {
 
 async function setClaudioStatus(status) {
   const { baseUrl, token, workspaceId } = getMcConfig();
-  // This is the Claudio (BlogBot) agent imported from Gateway in Mission Control
   const CLAUDIO_AGENT_ID = process.env.MC_CLAUDIO_AGENT_ID || '164a6c3c-c81a-40c5-963a-4a03dc95c828';
   try {
     await apiFetch(baseUrl, token, `/api/agents/${CLAUDIO_AGENT_ID}`, {
@@ -98,6 +101,28 @@ async function setClaudioStatus(status) {
   } catch {
     // don't fail publishing if MC status update fails
   }
+}
+
+function pickClusterForToday(history, clusters) {
+  // clusters: array in order Monday..Sunday
+  const today = new Date();
+  // Use local timezone of server; fallback to UTC day if needed
+  const dayIndex = today.getDay(); // 0=Sunday
+  // mapping: Monday(1) -> index 0
+  const mappingIndex = (dayIndex + 6) % 7; // 0->6,1->0,...
+  // initial preferred cluster
+  let pref = clusters[mappingIndex];
+  // build recent set to avoid repeats
+  const recentCount = noRepeatWeeks * clusters.length;
+  const recent = (history || []).slice(-recentCount).map(r => r.cluster).filter(Boolean);
+  if (!recent.includes(pref)) return pref;
+  // otherwise pick next cluster not in recent, cycling forward
+  for (let i = 1; i < clusters.length; i++) {
+    const c = clusters[(mappingIndex + i) % clusters.length];
+    if (!recent.includes(c)) return c;
+  }
+  // if all appear in recent, just return preference
+  return pref;
 }
 
 async function main() {
@@ -113,8 +138,43 @@ async function main() {
     metadata: { kind: 'blogbot_run_start', lang, date }
   });
 
+  // Rotation config
+  const clusters = [
+    'impressoras', // Monday
+    'filamentos',  // Tuesday
+    'projetos',    // Wednesday
+    'marketplaces',// Thursday
+    'monetizacao', // Friday
+    'manutencao',  // Saturday
+    'mix'          // Sunday
+  ];
+
+  // Try load history
+  let history = [];
+  const historyPath = path.resolve(process.cwd(), 'automation/3dprint-pricing-bot/published_history.json');
+  try {
+    if (fs.existsSync(historyPath)) {
+      const raw = fs.readFileSync(historyPath, 'utf8');
+      history = JSON.parse(raw || '[]');
+    }
+  } catch (e) {
+    // continue with empty history
+    history = [];
+  }
+
+  if (rotateWeekly && !focus) {
+    const chosen = pickClusterForToday(history, clusters);
+    focus = chosen; // pass cluster name as focus to runner
+    await logActivity(task.id, {
+      activity_type: 'updated',
+      message: `Rodada diária: cluster selecionado = ${chosen}`,
+      metadata: { kind: 'blogbot_rotation', cluster: chosen }
+    });
+  }
+
   const args = ['--lang', lang];
   if (focus) args.push('--focus', focus);
+
   const res = await runNodeScript(runnerPath, args);
 
   if (res.code !== 0) {
@@ -138,6 +198,7 @@ async function main() {
 
   const slug = parsed?.slug;
   const postTitle = parsed?.published?.post?.title || parsed?.published?.title || '(sem título)';
+  const clusterRecorded = focus || parsed?.meta?.cluster || null;
 
   await logActivity(task.id, {
     activity_type: 'completed',
@@ -152,6 +213,15 @@ async function main() {
   if (publicBase && slug) {
     const url = publicBase.replace(/\/$/, '') + '/blog/' + slug;
     await addDeliverable(task.id, { title: `Post ${lang.toUpperCase()}: ${slug}`, url });
+  }
+
+  // Append to history
+  try {
+    const entry = { date: date, slug: slug || null, title: postTitle, cluster: clusterRecorded };
+    history.push(entry);
+    fs.writeFileSync(historyPath, JSON.stringify(history, null, 2), 'utf8');
+  } catch (e) {
+    // ignore history write failures
   }
 
   console.log(res.out);
